@@ -346,6 +346,7 @@
             <param>${app.package}.config.SecurityConfig</param>
             <param>${app.package}.config.SpaCsrfTokenRequestHandler</param>
             <param>${app.package}.config.CsrfCookieFilter</param>
+            <param>${app.package}.config.EmailHealthIndicator</param>
             <param>${app.package}.services.wiremock.WiremockService</param>
             <param>${app.package}.services.wiremock.WiremockServiceDummy</param>
             <param>${app.package}.services.wiremock.WiremockServiceImpl</param>
