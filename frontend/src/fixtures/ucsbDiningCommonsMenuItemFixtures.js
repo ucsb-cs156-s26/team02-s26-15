@@ -1,5 +1,5 @@
 const ucsbDiningCommonsMenuItemFixtures = {
-  oneDiningCommonMenuItem: {
+  oneDiningCommonsMenuItem: {
     id: 1,
     diningCommonsCode: "dlg",
     name: "mikaela",
