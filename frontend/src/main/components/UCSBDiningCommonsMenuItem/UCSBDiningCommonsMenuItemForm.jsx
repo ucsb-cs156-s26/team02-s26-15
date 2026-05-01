@@ -35,17 +35,16 @@ function UCSBDiningCommonsMenuItemForm({
             </Form.Group>
           </Col>
         )}
-
+      </Row>
+      <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="diningCommonsCode">
-              Dining Commons Code
-            </Form.Label>
+            <Form.Label htmlFor="diningCommonsCode">Dining Commons Code</Form.Label>
             <Form.Control
               data-testid="UCSBDiningCommonsMenuItemForm-diningCommonsCode"
               id="diningCommonsCode"
               type="text"
-              isInvalid={Boolean(errors.name)}
+              isInvalid={Boolean(errors.diningCommonsCode)}
               {...register("diningCommonsCode", {
                 required: "Dining Commons Code is required.",
               })}
