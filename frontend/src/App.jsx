@@ -31,14 +31,17 @@ function App() {
     <Routes>
       <Route exact path="/" element={<HomePage />} />
       <Route exact path="/profile" element={<ProfilePage />} />
+
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <Route exact path="/admin/users" element={<AdminUsersPage />} />
       )}
+
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
         </>
       )}
+
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -53,7 +56,19 @@ function App() {
           />
         </>
       )}
-            {hasRole(currentUser, "ROLE_ADMIN") && (
+
+      {/* ✅ FIXED: Added MenuItemReviews index route */}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route
+            exact
+            path="/menuItemReviews"
+            element={<MenuItemReviewsIndexPage />}
+          />
+        </>
+      )}
+
+      {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
             exact
@@ -67,11 +82,13 @@ function App() {
           />
         </>
       )}
+
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         </>
       )}
+
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -86,11 +103,13 @@ function App() {
           />
         </>
       )}
+
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
+
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
