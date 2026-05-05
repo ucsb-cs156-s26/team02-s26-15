@@ -24,7 +24,7 @@ function HelpRequestForm({
 
   const navigate = useNavigate();
 
-  const testIdPrefix = "HelpRequestsForm";
+  const testIdPrefix = "HelpRequestForm";
 
   // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
   // Note that even this complex regex may still need some tweaks
@@ -96,11 +96,11 @@ function HelpRequestForm({
           type="text"
           isInvalid={Boolean(errors.tableOrBreakoutRoom)}
           {...register("tableOrBreakoutRoom", {
-            required: "Table or breakout room number is required.",
+            required: "Table or breakout room is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.teamId?.message}
+          {errors.tableOrBreakoutRoom?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -133,7 +133,7 @@ function HelpRequestForm({
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.teamId?.message}
+          {errors.explanation?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
