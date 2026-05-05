@@ -7,16 +7,17 @@ function UCSBOrganizationForm({
   submitAction,
   buttonLabel = "Create",
 }) {
-  // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ defaultValues: initialContents || {} });
-  // Stryker restore all
+  } = useForm({
+    defaultValues: initialContents || {
+      inactive: false,
+    },
+  });
 
   const navigate = useNavigate();
-
   const testIdPrefix = "UCSBOrganizationForm";
 
   return (
@@ -26,10 +27,9 @@ function UCSBOrganizationForm({
           <Form.Label htmlFor="orgCode">Organization Code</Form.Label>
           <Form.Control
             data-testid={testIdPrefix + "-orgCode"}
-            orgCode="orgCode"
+            id="orgCode"
             type="text"
             {...register("orgCode")}
-            value={initialContents.orgCode}
             disabled
           />
         </Form.Group>
@@ -37,7 +37,7 @@ function UCSBOrganizationForm({
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgTranslation">
-          Oeganization Translation
+          Organization Translation
         </Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-orgTranslation"}
@@ -65,7 +65,7 @@ function UCSBOrganizationForm({
           data-testid={testIdPrefix + "-orgTranslationShort"}
           id="orgTranslationShort"
           type="text"
-          isInvalid={Boolean(errors.description)}
+          isInvalid={Boolean(errors.orgTranslationShort)}
           {...register("orgTranslationShort", {
             required: "orgTranslationShort is required.",
           })}
@@ -81,17 +81,14 @@ function UCSBOrganizationForm({
           id="inactive"
           type="checkbox"
           label="Inactive"
-          isInvalid={Boolean(errors.inactive)}
           {...register("inactive")}
         />
-        <Form.Control.Feedback type="invalid">
-          {errors.inactive?.message}
-        </Form.Control.Feedback>
       </Form.Group>
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
       </Button>
+
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
