@@ -10,8 +10,7 @@ function MenuItemReviewForm({
   const defaultValues = initialContents
     ? {
         ...initialContents,
-        dateReviewed: initialContents.dateReviewed
-          ?.slice(0, 16),
+        dateReviewed: initialContents.dateReviewed?.slice(0, 16),
       }
     : {};
   // Stryker disable all
