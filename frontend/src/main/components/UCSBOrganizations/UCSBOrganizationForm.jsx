@@ -7,14 +7,17 @@ function UCSBOrganizationForm({
   submitAction,
   buttonLabel = "Create",
 }) {
+  const defaultValues = initialContents
+    ? {
+        ...initialContents,
+      }
+    : { inactive: false };
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: initialContents || {
-      inactive: false,
-    },
+    defaultValues,
   });
 
   const navigate = useNavigate();
@@ -45,10 +48,10 @@ function UCSBOrganizationForm({
           type="text"
           isInvalid={Boolean(errors.orgTranslation)}
           {...register("orgTranslation", {
-            required: "orgTranslation is required.",
+            required: "Organization Translation is required.",
             maxLength: {
               value: 255,
-              message: "Max length 30 characters",
+              message: "Max length 255 characters",
             },
           })}
         />
@@ -67,7 +70,7 @@ function UCSBOrganizationForm({
           type="text"
           isInvalid={Boolean(errors.orgTranslationShort)}
           {...register("orgTranslationShort", {
-            required: "orgTranslationShort is required.",
+            required: "Organization Translation Short is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
