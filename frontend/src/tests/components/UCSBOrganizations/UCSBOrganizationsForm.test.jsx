@@ -50,10 +50,9 @@ describe("UCSBOrganizationForm tests", () => {
         </Router>
       </QueryClientProvider>,
     );
-  
+
     expect(screen.queryByTestId(`${testId}-orgCode`)).not.toBeInTheDocument();
   });
-
 
   test("renders correctly when passing in initialContents", async () => {
     render(
@@ -84,15 +83,15 @@ describe("UCSBOrganizationForm tests", () => {
       orgTranslationShort: "t",
       inactive: true,
     };
-  
+
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
           <UCSBOrganizationForm initialContents={fixture} />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
-  
+
     expect(screen.getByLabelText(/Inactive/i).checked).toBe(true);
   });
 
@@ -102,9 +101,9 @@ describe("UCSBOrganizationForm tests", () => {
         <Router>
           <UCSBOrganizationForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
-  
+
     expect(screen.getByLabelText(/Inactive/i).checked).toBe(false);
   });
 
