@@ -2,10 +2,10 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-export const removeZ = (myString) => {
+// eslint-disable-next-line react-refresh/only-export-components
+export function removeZ(myString) {
   return myString.replace("Z", "");
-};
-
+}
 function ArticleForm({
   initialContents,
   submitAction,
@@ -133,7 +133,9 @@ function ArticleForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit">{buttonLabel}</Button>
+      <Button type="submit">
+        {buttonLabel}
+      </Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
