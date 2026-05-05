@@ -7,18 +7,21 @@ function MenuItemReviewForm({
   submitAction,
   buttonLabel = "Create",
 }) {
+  const defaultValues = initialContents
+    ? {
+        ...initialContents,
+        dateReviewed: initialContents.dateReviewed
+          ?.replace("Z", "")
+          .slice(0, 16),
+      }
+    : {};
   // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: initialContents
-      ? {
-          ...initialContents,
-          dateReviewed: initialContents.dateReviewed?.replace("Z", ""),
-        }
-      : {},
+    defaultValues,
   });
   // Stryker restore all
 
