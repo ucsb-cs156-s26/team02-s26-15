@@ -18,7 +18,7 @@ vi.mock("react-router", async () => {
 describe("ArticleForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Id", "Title", "URL", "Explanation", "Email", "Date Added (in UTC)"];
+  const expectedHeaders = ["Title", "URL", "Explanation", "Email", "Date Added (in UTC)"];
   const testId = "ArticleForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -62,7 +62,7 @@ describe("ArticleForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <RestaurantForm />
+          <ArticleForm />
         </Router>
       </QueryClientProvider>,
     );
@@ -88,7 +88,7 @@ describe("ArticleForm tests", () => {
     fireEvent.click(submitButton);
 
     await screen.findByText(/Title is required/);
-    expect(screen.getByText(/DateAdded is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Date Added is required/)).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
     expect(screen.getByText(/URL is required/)).toBeInTheDocument();
     expect(screen.getByText(/Email is required/)).toBeInTheDocument();
