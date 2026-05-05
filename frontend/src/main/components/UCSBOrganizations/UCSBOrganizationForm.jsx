@@ -7,12 +7,8 @@ function UCSBOrganizationForm({
   submitAction,
   buttonLabel = "Create",
 }) {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    defaultValues: initialContents || {},
+  const { register, formState: { errors }, handleSubmit } = useForm({ 
+    defaultValues: initialContents || {} 
   });
 
   const navigate = useNavigate();
@@ -77,11 +73,13 @@ function UCSBOrganizationForm({
           id="inactive"
           type="checkbox"
           label="Inactive"
-          {...register("inactive")}
+          {...register("inactive")} 
         />
       </Form.Group>
 
-      <Button type="submit">{buttonLabel}</Button>
+      <Button type="submit">
+        {buttonLabel}
+      </Button>
 
       <Button
         variant="Secondary"
