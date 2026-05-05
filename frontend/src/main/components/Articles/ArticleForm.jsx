@@ -2,7 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-export function removeZ(myString) {
+function removeZ(myString) {
   return myString.replace("Z", "");
 }
 
