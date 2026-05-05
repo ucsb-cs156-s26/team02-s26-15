@@ -11,8 +11,7 @@ function MenuItemReviewForm({
     ? {
         ...initialContents,
         dateReviewed: initialContents.dateReviewed
-          ?.replace("Z", "")
-          .slice(0, 16),
+          ?.slice(0, 16),
       }
     : {};
   // Stryker disable all
@@ -61,10 +60,6 @@ function MenuItemReviewForm({
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
             required: "Item Id is required.",
-            maxLength: {
-              value: 255,
-              message: "Max length 255 characters",
-            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -141,7 +136,7 @@ function MenuItemReviewForm({
         {buttonLabel}
       </Button>
       <Button
-        variant="Secondary"
+        variant="secondary"
         onClick={() => navigate(-1)}
         data-testid={testIdPrefix + "-cancel"}
       >
