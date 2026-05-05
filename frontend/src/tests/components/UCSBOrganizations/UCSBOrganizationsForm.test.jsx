@@ -1,9 +1,9 @@
+
+
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router";
-
 import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
 import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const mockedNavigate = vi.fn();
@@ -53,7 +53,7 @@ describe("UCSBOrganizationForm tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByText(/Create/)).toBeInTheDocument();
+    expect(await screen.findByText(/Update|Create/)).toBeInTheDocument();
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -62,6 +62,21 @@ describe("UCSBOrganizationForm tests", () => {
 
     expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument();
     expect(screen.getByText(`Organization Code`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgCode`)).toHaveValue(
+      ucsbOrganizationsFixtures.oneOrganization.orgCode
+    );
+  });
+
+  test("does not show orgCode when no initialContents", () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <UCSBOrganizationForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+  
+    expect(screen.queryByTestId(`${testId}-orgCode`)).not.toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
@@ -108,4 +123,5 @@ describe("UCSBOrganizationForm tests", () => {
       expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
     });
   });
+
 });

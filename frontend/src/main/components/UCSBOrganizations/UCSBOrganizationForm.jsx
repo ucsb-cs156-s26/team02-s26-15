@@ -7,17 +7,12 @@ function UCSBOrganizationForm({
   submitAction,
   buttonLabel = "Create",
 }) {
-  const defaultValues = initialContents
-    ? {
-        ...initialContents,
-      }
-    : { inactive: false };
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues,
+    defaultValues: initialContents || {}
   });
 
   const navigate = useNavigate();
@@ -65,7 +60,6 @@ function UCSBOrganizationForm({
           Organization Translation Short
         </Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-orgTranslationShort"}
           id="orgTranslationShort"
           type="text"
           isInvalid={Boolean(errors.orgTranslationShort)}
@@ -80,7 +74,6 @@ function UCSBOrganizationForm({
 
       <Form.Group className="mb-3">
         <Form.Check
-          data-testid={testIdPrefix + "-inactive"}
           id="inactive"
           type="checkbox"
           label="Inactive"
@@ -88,7 +81,7 @@ function UCSBOrganizationForm({
         />
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+      <Button type="submit">
         {buttonLabel}
       </Button>
 
