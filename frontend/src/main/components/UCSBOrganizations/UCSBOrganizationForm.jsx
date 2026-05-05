@@ -89,7 +89,7 @@ function UCSBOrganizationForm({initialContents,submitAction,buttonLabel = "Creat
         onClick={() => navigate(-1)}
         data-testid={testIdPrefix + "-cancel"}
       >
-        Cancel
+        Cancel 
       </Button>
     </Form>
   );
