@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 function MenuItemReviewForm({
   initialContents,
   submitAction,
-  buttonLabel = "Create"
+  buttonLabel = "Create",
 }) {
   // Stryker disable all
   const {
