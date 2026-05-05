@@ -12,7 +12,14 @@ function MenuItemReviewForm({
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ defaultValues: initialContents || {} });
+  } = useForm({
+    defaultValues: initialContents
+      ? {
+          ...initialContents,
+          dateReviewed: initialContents.dateReviewed?.replace("Z", ""),
+        }
+      : {},
+  });
   // Stryker restore all
 
   const navigate = useNavigate();
@@ -95,7 +102,7 @@ function MenuItemReviewForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="dateReviewed">Date Reviewed</Form.Label>
+        <Form.Label htmlFor="dateReviewed">Date Reviewed (In UTC)</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-dateReviewed"}
           id="dateReviewed"
