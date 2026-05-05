@@ -18,7 +18,13 @@ vi.mock("react-router", async () => {
 describe("ArticleForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Title", "URL", "Explanation", "Email", "Date Added (in UTC)"];
+  const expectedHeaders = [
+    "Title",
+    "URL",
+    "Explanation",
+    "Email",
+    "Date Added (in UTC)",
+  ];
   const testId = "ArticleForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -92,7 +98,6 @@ describe("ArticleForm tests", () => {
     expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
     expect(screen.getByText(/URL is required/)).toBeInTheDocument();
     expect(screen.getByText(/Email is required/)).toBeInTheDocument();
-
 
     const titleInput = screen.getByTestId(`${testId}-title`);
     fireEvent.change(titleInput, { target: { value: "a".repeat(256) } });
