@@ -1,6 +1,6 @@
 import React from "react";
 import ArticleForm from "main/components/Articles/ArticleForm";
-import { ArticleFixtures } from "fixtures/articleFixtures";
+import { articleFixtures } from "/src/fixtures/articleFixtures.js";
 
 export default {
   title: "components/Articles/ArticleForm",
@@ -24,7 +24,7 @@ Create.args = {
 export const Update = Template.bind({});
 
 Update.args = {
-  initialContents: ArticleFixtures.oneArticle[0],
+  initialContents: articleFixtures.oneArticle[0],
   buttonLabel: "Update",
   submitAction: (data) => {
     console.log("Submit was clicked with data: ", data);
