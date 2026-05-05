@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router";
 
-import ArticleForm from "main/components/Articles/ArticleForm";
+import ArticleForm, { removeZ } from "main/components/Articles/ArticleForm";
 import { articleFixtures } from "fixtures/articleFixtures";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
