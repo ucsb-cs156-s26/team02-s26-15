@@ -2,6 +2,10 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
+export function removeZ(myString) {
+  return myString.replace("Z", "");
+}
+
 function ArticleForm({
   initialContents,
   submitAction,
@@ -71,7 +75,6 @@ function ArticleForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="url">URL</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-url"}
           id="url"
           type="text"
           isInvalid={Boolean(errors.url)}
@@ -87,7 +90,6 @@ function ArticleForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="explanation">Explanation</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-explanation"}
           id="explanation"
           type="text"
           isInvalid={Boolean(errors.explanation)}
@@ -103,7 +105,6 @@ function ArticleForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="email">Email</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-email"}
           id="email"
           type="text"
           isInvalid={Boolean(errors.email)}
@@ -119,7 +120,6 @@ function ArticleForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="dateAdded">Date Added (in UTC)</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-dateAdded"}
           id="dateAdded"
           type="datetime-local"
           isInvalid={Boolean(errors.dateAdded)}
@@ -133,7 +133,7 @@ function ArticleForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+      <Button type="submit">
         {buttonLabel}
       </Button>
       <Button

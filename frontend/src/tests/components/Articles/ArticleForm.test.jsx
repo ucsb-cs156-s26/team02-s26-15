@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router";
 
-import ArticleForm from "main/components/Articles/ArticleForm";
+import ArticleForm, {removeZ} from "main/components/Articles/ArticleForm";
 import { articleFixtures } from "fixtures/articleFixtures";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -26,6 +26,11 @@ describe("ArticleForm tests", () => {
     "Date Added (in UTC)",
   ];
   const testId = "ArticleForm";
+
+  test("that the removeZ function works properly", () => {
+    expect(removeZ("ABC")).toBe("ABC");
+    expect(removeZ("ABCZ")).toBe("ABC");
+  });
 
   test("renders correctly with no initialContents", async () => {
     render(
@@ -62,6 +67,14 @@ describe("ArticleForm tests", () => {
 
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByText(`Id`)).toBeInTheDocument();
+
+    expect(screen.getByLabelText("Id")).toHaveValue(String(articleFixtures.oneArticle.id));
+    expect(screen.getByLabelText("Title")).toHaveValue(articleFixtures.oneArticle.title);
+    expect(screen.getByLabelText("URL")).toHaveValue(articleFixtures.oneArticle.url);
+    expect(screen.getByLabelText("Explanation")).toHaveValue(articleFixtures.oneArticle.explanation);
+    expect(screen.getByLabelText("Email")).toHaveValue(articleFixtures.oneArticle.email);
+    expect(screen.getByLabelText("Date Added (in UTC)")).toHaveValue("2026-05-01T12:00");
+
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
