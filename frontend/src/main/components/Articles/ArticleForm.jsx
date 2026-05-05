@@ -112,22 +112,6 @@ function ArticleForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="email">Email</Form.Label>
-        <Form.Control
-          data-testid={testIdPrefix + "-email"}
-          id="email"
-          type="text"
-          isInvalid={Boolean(errors.email)}
-          {...register("email", {
-            required: "Email is required.",
-          })}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.email?.message}
-        </Form.Control.Feedback>
-      </Form.Group>
-
-      <Form.Group className="mb-3">
         <Form.Label htmlFor="dateAdded">Date Added (in UTC)</Form.Label>
         <Form.Control
             data-testid={testIdPrefix + "-dateAdded"}
