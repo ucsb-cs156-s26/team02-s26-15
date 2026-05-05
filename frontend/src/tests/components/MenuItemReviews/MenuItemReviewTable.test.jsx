@@ -45,10 +45,7 @@ describe("MenuItemReviewTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <MenuItemReviewTable
-            menuItemReviews={[]}
-            currentUser={currentUser}
-          />
+          <MenuItemReviewTable menuItemReviews={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -59,7 +56,7 @@ describe("MenuItemReviewTable tests", () => {
 
     expectedFields.forEach((field) => {
       expect(
-        screen.queryByTestId(`${testId}-cell-row-0-col-${field}`)
+        screen.queryByTestId(`${testId}-cell-row-0-col-${field}`),
       ).not.toBeInTheDocument();
     });
   });
@@ -84,22 +81,38 @@ describe("MenuItemReviewTable tests", () => {
 
     expectedFields.forEach((field) => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-${field}`)
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-itemId`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`)).toHaveTextContent("katelyndang@ucsb.edu");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-stars`)).toHaveTextContent("5");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`)).toHaveTextContent("2026-05-04T15:10:10");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-comments`)).toHaveTextContent("Very good food!");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
+    ).toHaveTextContent("2");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
+    ).toHaveTextContent("katelyndang@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-stars`),
+    ).toHaveTextContent("5");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
+    ).toHaveTextContent("2026-05-04T15:10:10");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-comments`),
+    ).toHaveTextContent("Very good food!");
 
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    const editButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Edit-button`,
+    );
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
 
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    const deleteButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveClass("btn-danger");
   });
@@ -124,12 +137,16 @@ describe("MenuItemReviewTable tests", () => {
 
     expectedFields.forEach((field) => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-${field}`)
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-itemId`)).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
+    ).toHaveTextContent("2");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -150,15 +167,13 @@ describe("MenuItemReviewTable tests", () => {
     );
 
     const editButton = await screen.findByTestId(
-      `${testId}-cell-row-0-col-Edit-button`
+      `${testId}-cell-row-0-col-Edit-button`,
     );
 
     fireEvent.click(editButton);
 
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith(
-        "/menuItemReviews/edit/1"
-      )
+      expect(mockedNavigate).toHaveBeenCalledWith("/menuItemReviews/edit/1"),
     );
   });
 
@@ -182,14 +197,12 @@ describe("MenuItemReviewTable tests", () => {
     );
 
     const deleteButton = await screen.findByTestId(
-      `${testId}-cell-row-0-col-Delete-button`
+      `${testId}-cell-row-0-col-Delete-button`,
     );
 
     fireEvent.click(deleteButton);
 
-    await waitFor(() =>
-      expect(axiosMock.history.delete.length).toBe(1)
-    );
+    await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
 
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });

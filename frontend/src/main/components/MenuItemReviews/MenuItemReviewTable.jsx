@@ -49,16 +49,16 @@ export default function MenuItemReviewTable({
       accessorKey: "reviewerEmail",
     },
     {
-        header: "Stars",
-        accessorKey: "stars",
+      header: "Stars",
+      accessorKey: "stars",
     },
     {
-        header: "Date Reviewed",
-        accessorKey: "dateReviewed",
+      header: "Date Reviewed",
+      accessorKey: "dateReviewed",
     },
     {
-        header: "Comments",
-        accessorKey: "comments",
+      header: "Comments",
+      accessorKey: "comments",
     },
   ];
 
