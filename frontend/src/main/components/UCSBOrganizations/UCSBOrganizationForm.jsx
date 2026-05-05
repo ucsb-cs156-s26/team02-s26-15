@@ -2,7 +2,11 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-function UCSBOrganizationForm({initialContents,submitAction,buttonLabel = "Create"}) {
+function UCSBOrganizationForm({
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
+}) {
   // Stryker disable all
   const {
     register,
@@ -32,7 +36,9 @@ function UCSBOrganizationForm({initialContents,submitAction,buttonLabel = "Creat
       )}
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="orgTranslation">Oeganization Translation</Form.Label>
+        <Form.Label htmlFor="orgTranslation">
+          Oeganization Translation
+        </Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-orgTranslation"}
           id="orgTranslation"
@@ -52,7 +58,9 @@ function UCSBOrganizationForm({initialContents,submitAction,buttonLabel = "Creat
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="orgTranslationShort">Organization Translation Short</Form.Label>
+        <Form.Label htmlFor="orgTranslationShort">
+          Organization Translation Short
+        </Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-orgTranslationShort"}
           id="orgTranslationShort"
@@ -89,7 +97,7 @@ function UCSBOrganizationForm({initialContents,submitAction,buttonLabel = "Creat
         onClick={() => navigate(-1)}
         data-testid={testIdPrefix + "-cancel"}
       >
-        Cancel 
+        Cancel
       </Button>
     </Form>
   );
