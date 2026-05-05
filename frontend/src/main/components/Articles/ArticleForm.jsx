@@ -7,7 +7,8 @@ function ArticleForm({
   submitAction,
   buttonLabel = "Create",
 }) {
-  const defaultValues = initialContents    ? {
+  const defaultValues = initialContents
+    ? {
         ...initialContents,
         dateAdded: initialContents.dateAdded.replace("Z", ""),
       }
@@ -17,8 +18,7 @@ function ArticleForm({
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm(
-    { defaultValues: defaultValues });
+  } = useForm({ defaultValues: defaultValues });
   // Stryker restore all
 
   const navigate = useNavigate();
@@ -84,7 +84,6 @@ function ArticleForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      
       <Form.Group className="mb-3">
         <Form.Label htmlFor="explanation">Explanation</Form.Label>
         <Form.Control
@@ -100,7 +99,7 @@ function ArticleForm({
           {errors.explanation?.message}
         </Form.Control.Feedback>
       </Form.Group>
-      
+
       <Form.Group className="mb-3">
         <Form.Label htmlFor="email">Email</Form.Label>
         <Form.Control
@@ -120,17 +119,17 @@ function ArticleForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="dateAdded">Date Added (in UTC)</Form.Label>
         <Form.Control
-            data-testid={testIdPrefix + "-dateAdded"}
-            id="dateAdded"
-            type="datetime-local"
-            isInvalid={Boolean(errors.dateAdded)}
-            {...register("dateAdded", {
+          data-testid={testIdPrefix + "-dateAdded"}
+          id="dateAdded"
+          type="datetime-local"
+          isInvalid={Boolean(errors.dateAdded)}
+          {...register("dateAdded", {
             required: true,
             pattern: isodate_regex,
-            })}
+          })}
         />
         <Form.Control.Feedback type="invalid">
-            {errors.dateAdded && "Date Added is required. "}
+          {errors.dateAdded && "Date Added is required. "}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -149,4 +148,3 @@ function ArticleForm({
 }
 
 export default ArticleForm;
-
