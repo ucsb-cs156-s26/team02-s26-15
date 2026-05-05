@@ -12,7 +12,7 @@ function UCSBOrganizationForm({
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: initialContents || {}
+    defaultValues: initialContents || {},
   });
 
   const navigate = useNavigate();
@@ -81,9 +81,7 @@ function UCSBOrganizationForm({
         />
       </Form.Group>
 
-      <Button type="submit">
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
 
       <Button
         variant="Secondary"

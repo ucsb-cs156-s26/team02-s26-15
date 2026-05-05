@@ -1,5 +1,3 @@
-
-
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router";
 import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
@@ -63,7 +61,7 @@ describe("UCSBOrganizationForm tests", () => {
     expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument();
     expect(screen.getByText(`Organization Code`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-orgCode`)).toHaveValue(
-      ucsbOrganizationsFixtures.oneOrganization.orgCode
+      ucsbOrganizationsFixtures.oneOrganization.orgCode,
     );
   });
 
@@ -75,7 +73,7 @@ describe("UCSBOrganizationForm tests", () => {
         </Router>
       </QueryClientProvider>,
     );
-  
+
     expect(screen.queryByTestId(`${testId}-orgCode`)).not.toBeInTheDocument();
   });
 
@@ -123,5 +121,4 @@ describe("UCSBOrganizationForm tests", () => {
       expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
     });
   });
-
 });
