@@ -19,6 +19,14 @@ function MenuItemReviewForm({
 
   const testIdPrefix = "MenuItemReviewForm";
 
+  // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+  // Note that even this complex regex may still need some tweaks
+
+  // Stryker disable Regex
+  const isodate_regex =
+    /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  // Stryker restore Regex
+
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
       {initialContents && (
@@ -27,23 +35,22 @@ function MenuItemReviewForm({
           <Form.Control
             data-testid={testIdPrefix + "-id"}
             id="id"
-            type="text"
+            type="number"
             {...register("id")}
-            value={initialContents.id}
             disabled
           />
         </Form.Group>
       )}
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="itemId">ItemId</Form.Label>
+        <Form.Label htmlFor="itemId">Item Id</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-itemId"}
           id="itemId"
-          type="text"
+          type="number"
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
-            required: "ItemId is required.",
+            required: "Item Id is required.",
             maxLength: {
               value: 255,
               message: "Max length 255 characters",
@@ -56,18 +63,67 @@ function MenuItemReviewForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="reviewerEmail">ReviewerEmail</Form.Label>
+        <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-reviewerEmail"}
           id="reviewerEmail"
-          type="text"
+          type="email"
           isInvalid={Boolean(errors.reviewerEmail)}
           {...register("reviewerEmail", {
-            required: "ReviewerEmail is required.",
+            required: "Reviewer Email is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
           {errors.reviewerEmail?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="stars">Stars</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-stars"}
+          id="stars"
+          type="number"
+          isInvalid={Boolean(errors.stars)}
+          {...register("stars", {
+            required: "Stars is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.stars?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="dateReviewed">Date Reviewed</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-dateReviewed"}
+          id="dateReviewed"
+          type="datetime-local"
+          isInvalid={Boolean(errors.dateReviewed)}
+          {...register("dateReviewed", {
+            required: true,
+            pattern: isodate_regex,
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.dateReviewed && "Date Reviewed is required."}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="comments">Comments</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-comments"}
+          id="comments"
+          type="text"
+          isInvalid={Boolean(errors.comments)}
+          {...register("comments", {
+            required: "Comments is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.comments?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
