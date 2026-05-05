@@ -19,14 +19,24 @@ vi.mock("react-router", async () => {
 describe("HelpRequestTable tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = [ "id",
+  const expectedHeaders = [
+    "id",
     "Requester Email",
     "Team ID",
     "Table or Breakout Room",
     "Request Time (iso format)",
     "Explanation",
-    "Solved"];
-  const expectedFields = ["id", "requesterEmail", "teamId", "tableOrBreakoutRoom", "requestTime", "explanation", "solved"];
+    "Solved",
+  ];
+  const expectedFields = [
+    "id",
+    "requesterEmail",
+    "teamId",
+    "tableOrBreakoutRoom",
+    "requestTime",
+    "explanation",
+    "solved",
+  ];
   const testId = "HelpRequestTable";
 
   test("renders empty table correctly", () => {

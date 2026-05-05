@@ -51,7 +51,7 @@ export default function HelpRequestTable({
       header: "Table or Breakout Room",
       accessorKey: "tableOrBreakoutRoom",
     },
-     {
+    {
       header: "Request Time (iso format)",
       accessorKey: "requestTime",
     },
