@@ -85,9 +85,9 @@ describe("ArticleTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("1");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-title`),
     ).toHaveTextContent("How to Learn React");
@@ -104,9 +104,9 @@ describe("ArticleTable tests", () => {
       screen.getByTestId(`${testId}-cell-row-0-col-dateAdded`),
     ).toHaveTextContent("2026-05-01T12:00:00.000Z");
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`),
-    ).toHaveTextContent("3");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "3",
+    );
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-title`),
     ).toHaveTextContent("Spring Boot Guide");
@@ -148,16 +148,16 @@ describe("ArticleTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("1");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-title`),
     ).toHaveTextContent("How to Learn React");
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`),
-    ).toHaveTextContent("3");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "3",
+    );
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-title`),
     ).toHaveTextContent("Spring Boot Guide");

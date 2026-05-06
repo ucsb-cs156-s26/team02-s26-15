@@ -2,7 +2,7 @@ import React from "react";
 import ArticleTable from "main/components/Articles/ArticleTable";
 import { articleFixtures } from "/src/fixtures/articleFixtures.js";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
-import {http, HttpResponse} from "msw";
+import { http, HttpResponse } from "msw";
 
 export default {
   title: "components/Articles/ArticleTable",
@@ -12,7 +12,6 @@ export default {
 const Template = (args) => {
   return <ArticleTable {...args} />;
 };
-
 
 export const Empty = Template.bind({});
 
