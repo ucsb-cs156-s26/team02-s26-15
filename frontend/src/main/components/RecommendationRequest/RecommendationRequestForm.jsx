@@ -56,7 +56,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.requesterEmail)}
               {...register("requesterEmail", {
                 required: "Requester Email is required.",
-                pattern: { value: email_regex, message: "Invalid email format." },
+                pattern: {
+                  value: email_regex,
+                  message: "Invalid email format.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -74,7 +77,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.professorEmail)}
               {...register("professorEmail", {
                 required: "Professor Email is required.",
-                pattern: { value: email_regex, message: "Invalid email format." },
+                pattern: {
+                  value: email_regex,
+                  message: "Invalid email format.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -107,7 +113,9 @@ function RecommendationRequestForm({
       <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateRequested">Date Requested (iso format)</Form.Label>
+            <Form.Label htmlFor="dateRequested">
+              Date Requested (iso format)
+            </Form.Label>
             <Form.Control
               data-testid="RecommendationRequestForm-dateRequested"
               id="dateRequested"
@@ -125,7 +133,9 @@ function RecommendationRequestForm({
         </Col>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateNeeded">Date Needed (iso format)</Form.Label>
+            <Form.Label htmlFor="dateNeeded">
+              Date Needed (iso format)
+            </Form.Label>
             <Form.Control
               data-testid="RecommendationRequestForm-dateNeeded"
               id="dateNeeded"

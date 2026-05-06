@@ -49,7 +49,9 @@ describe("RecommendationRequestForm tests", () => {
       <QueryClientProvider client={queryClient}>
         <Router>
           <RecommendationRequestForm
-            initialContents={recommendationRequestFixtures.oneRecommendationRequest}
+            initialContents={
+              recommendationRequestFixtures.oneRecommendationRequest
+            }
           />
         </Router>
       </QueryClientProvider>,
@@ -80,7 +82,9 @@ describe("RecommendationRequestForm tests", () => {
     fireEvent.click(submitButton);
 
     await screen.findByText(/Requester Email is required./);
-    expect(screen.getByText(/Professor Email is required./)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Professor Email is required./),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Requested is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Needed is required./)).toBeInTheDocument();
@@ -103,7 +107,8 @@ describe("RecommendationRequestForm tests", () => {
     fireEvent.change(professorEmailField, { target: { value: "also-bad" } });
     fireEvent.click(submitButton);
 
-    await screen.findAllByText(/Invalid email format./);
+    const errors = await screen.findAllByText(/Invalid email format./);
+    expect(errors.length).toBeGreaterThanOrEqual(1);
   });
 
   test("No Error messages on good input", async () => {
@@ -138,7 +143,9 @@ describe("RecommendationRequestForm tests", () => {
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(screen.queryByText(/Invalid email format./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Requester Email is required./)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Requester Email is required./),
+    ).not.toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
