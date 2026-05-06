@@ -89,7 +89,7 @@ describe("HelpRequestIndexPage tests", () => {
     });
 
     expect(screen.queryByText(/Create HelpRequest/)).not.toBeInTheDocument();
-    
+
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "3",
     );
