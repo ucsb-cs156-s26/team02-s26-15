@@ -5,26 +5,28 @@ import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function MenuItemReviewsCreatePage({ storybook = false }) {
-  const objectToAxiosParams = (restaurant) => ({
-    url: "/api/menuItemReviews/post",
+  const objectToAxiosParams = (menuItemReview) => ({
+    url: "/api/menuitemreview/post",
     method: "POST",
     params: {
-      name: menuItemReview.name,
-      description: menuItemReview.description,
+      itemId: menuItemReview.itemId,
+      reviewerEmail: menuItemReview.reviewerEmail,
+      stars: menuItemReview.stars,
+      dateReviewed: menuItemReview.dateReviewed,
+      comments: menuItemReview.comments,
     },
   });
 
-  const onSuccess = (restaurant) => {
+  const onSuccess = (menuItemReview) => {
     toast(
-      `New restaurant Created - id: ${restaurant.id} name: ${restaurant.name}`,
+      `New MenuItemReview Created - id: ${menuItemReview.id} itemId: ${menuItemReview.itemId}`,
     );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
     { onSuccess },
-    // Stryker disable next-line all : hard to set up test for caching
-    ["/api/restaurants/all"], // mutation makes this key stale so that pages relying on it reload
+    ["/api/menuitemreview/all"],
   );
 
   const { isSuccess } = mutation;
@@ -34,14 +36,14 @@ export default function MenuItemReviewsCreatePage({ storybook = false }) {
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/restaurants" />;
+    return <Navigate to="/menuItemReviews" />;
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Create New Restaurant</h1>
-        <RestaurantForm submitAction={onSubmit} />
+        <h1>Create New MenuItemReview</h1>
+        <MenuItemReviewForm submitAction={onSubmit} />
       </div>
     </BasicLayout>
   );
