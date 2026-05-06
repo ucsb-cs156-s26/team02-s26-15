@@ -15,6 +15,10 @@ import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviews
 import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
 import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
 
+import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
+import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
+import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
+
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -37,22 +41,29 @@ function App() {
       )}
 
       {hasRole(currentUser, "ROLE_USER") && (
-        <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+        <>
+          <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+          <Route path="/restaurants" element={<RestaurantIndexPage />} />
+          <Route path="/menuItemReviews" element={<MenuItemReviewsIndexPage />} />
+          <Route
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+          />
+          <Route path="/placeholder" element={<PlaceholderIndexPage />} />
+        </>
       )}
 
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
           <Route path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
-        </>
-      )}
 
-      {/* ✅ FIX: Index route ALWAYS available */}
-      <Route path="/menuItemReviews" element={<MenuItemReviewsIndexPage />} />
+          <Route
+            path="/restaurants/edit/:id"
+            element={<RestaurantEditPage />}
+          />
+          <Route path="/restaurants/create" element={<RestaurantCreatePage />} />
 
-      {/* Admin-only create/edit */}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
           <Route
             path="/menuItemReviews/edit/:id"
             element={<MenuItemReviewsEditPage />}
@@ -61,40 +72,21 @@ function App() {
             path="/menuItemReviews/create"
             element={<MenuItemReviewsCreatePage />}
           />
-        </>
-      )}
 
-      {hasRole(currentUser, "ROLE_USER") && (
-        <Route path="/restaurants" element={<RestaurantIndexPage />} />
-      )}
-
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
           <Route
-            path="/restaurants/edit/:id"
-            element={<RestaurantEditPage />}
+            path="/ucsborganizations/edit/:orgCode"
+            element={<UCSBOrganizationsEditPage />}
           />
           <Route
-            path="/restaurants/create"
-            element={<RestaurantCreatePage />}
+            path="/ucsborganizations/create"
+            element={<UCSBOrganizationsCreatePage />}
           />
-        </>
-      )}
 
-      {hasRole(currentUser, "ROLE_USER") && (
-        <Route path="/placeholder" element={<PlaceholderIndexPage />} />
-      )}
-
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
           <Route
             path="/placeholder/edit/:id"
             element={<PlaceholderEditPage />}
           />
-          <Route
-            path="/placeholder/create"
-            element={<PlaceholderCreatePage />}
-          />
+          <Route path="/placeholder/create" element={<PlaceholderCreatePage />} />
         </>
       )}
     </Routes>
