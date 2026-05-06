@@ -29,54 +29,35 @@ function App() {
 
   return (
     <Routes>
-      <Route exact path="/" element={<HomePage />} />
-      <Route exact path="/profile" element={<ProfilePage />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/profile" element={<ProfilePage />} />
 
       {hasRole(currentUser, "ROLE_ADMIN") && (
-        <Route exact path="/admin/users" element={<AdminUsersPage />} />
+        <Route path="/admin/users" element={<AdminUsersPage />} />
       )}
 
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
-        </>
+        <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
       )}
 
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/ucsbdates/edit/:id"
-            element={<UCSBDatesEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsbdates/create"
-            element={<UCSBDatesCreatePage />}
-          />
+          <Route path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
+          <Route path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
         </>
       )}
 
-      {/* ✅ FIXED: Added MenuItemReviews index route */}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/menuItemReviews"
-            element={<MenuItemReviewsIndexPage />}
-          />
-        </>
-      )}
+      {/* ✅ FIX: Index route ALWAYS available */}
+      <Route path="/menuItemReviews" element={<MenuItemReviewsIndexPage />} />
 
+      {/* Admin-only create/edit */}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
-            exact
             path="/menuItemReviews/edit/:id"
             element={<MenuItemReviewsEditPage />}
           />
           <Route
-            exact
             path="/menuItemReviews/create"
             element={<MenuItemReviewsCreatePage />}
           />
@@ -84,20 +65,16 @@ function App() {
       )}
 
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
-        </>
+        <Route path="/restaurants" element={<RestaurantIndexPage />} />
       )}
 
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
-            exact
             path="/restaurants/edit/:id"
             element={<RestaurantEditPage />}
           />
           <Route
-            exact
             path="/restaurants/create"
             element={<RestaurantCreatePage />}
           />
@@ -105,20 +82,16 @@ function App() {
       )}
 
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
-        </>
+        <Route path="/placeholder" element={<PlaceholderIndexPage />} />
       )}
 
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
-            exact
             path="/placeholder/edit/:id"
             element={<PlaceholderEditPage />}
           />
           <Route
-            exact
             path="/placeholder/create"
             element={<PlaceholderCreatePage />}
           />
