@@ -19,9 +19,9 @@ describe("UCSBOrganizationForm tests", () => {
   const queryClient = new QueryClient();
 
   const expectedHeaders = [
+    "Organization Code",
     "Organization Translation",
     "Organization Translation Short",
-    "Inactive",
   ];
   const testId = "UCSBOrganizationForm";
 
@@ -40,18 +40,15 @@ describe("UCSBOrganizationForm tests", () => {
       const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
-  });
 
-  test("does not show orgCode when no initialContents", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <UCSBOrganizationForm />
-        </Router>
-      </QueryClientProvider>,
-    );
-
-    expect(screen.queryByTestId(`${testId}-orgCode`)).not.toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgCode`)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${testId}-orgTranslationShort`),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-inactive`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-cancel`)).toBeInTheDocument();
   });
 
   test("renders correctly when passing in initialContents", async () => {
@@ -65,46 +62,19 @@ describe("UCSBOrganizationForm tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByText(/Create|Update/)).toBeInTheDocument();
+    expect(await screen.findByText(/Create/)).toBeInTheDocument();
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
 
-    expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument();
-    expect(screen.getByText(`Organization Code`)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Inactive/i).checked).toBe(false);
-  });
-
-  test("renders with initialContents", () => {
-    const fixture = {
-      orgTranslation: "test",
-      orgTranslationShort: "t",
-      inactive: true,
-    };
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <UCSBOrganizationForm initialContents={fixture} />
-        </Router>
-      </QueryClientProvider>,
-    );
-
-    expect(screen.getByLabelText(/Inactive/i).checked).toBe(true);
-  });
-
-  test("renders form with default values", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <UCSBOrganizationForm />
-        </Router>
-      </QueryClientProvider>,
-    );
-
-    expect(screen.getByLabelText(/Inactive/i).checked).toBe(false);
+    expect(screen.getByTestId(`${testId}-orgCode`)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${testId}-orgTranslationShort`),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-inactive`)).toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
@@ -136,10 +106,14 @@ describe("UCSBOrganizationForm tests", () => {
     const submitButton = screen.getByText(/Create/);
     fireEvent.click(submitButton);
 
-    await screen.findByText(/Organization Translation is required/);
+    await screen.findByText(/Organization Code is required/);
+    expect(
+      screen.getByText(/Organization Translation is required/),
+    ).toBeInTheDocument();
     expect(
       screen.getByText(/Organization Translation Short is required/),
     ).toBeInTheDocument();
+    expect(screen.getByText(/Status is required/)).toBeInTheDocument();
 
     const orgTranslationInput = screen.getByTestId(`${testId}-orgTranslation`);
     fireEvent.change(orgTranslationInput, {
@@ -150,5 +124,23 @@ describe("UCSBOrganizationForm tests", () => {
     await waitFor(() => {
       expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
     });
+  });
+
+  test("selects the correct option in the inactive dropdown", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <UCSBOrganizationForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    const inactiveDropdown = screen.getByTestId(`${testId}-inactive`);
+
+    fireEvent.change(inactiveDropdown, { target: { value: "true" } });
+    expect(inactiveDropdown.value).toBe("true");
+
+    fireEvent.change(inactiveDropdown, { target: { value: "false" } });
+    expect(inactiveDropdown.value).toBe("false");
   });
 });
