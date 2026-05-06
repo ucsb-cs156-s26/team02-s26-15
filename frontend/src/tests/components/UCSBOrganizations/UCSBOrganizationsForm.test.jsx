@@ -1,9 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router";
-
 import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
 import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const mockedNavigate = vi.fn();
@@ -17,12 +15,6 @@ vi.mock("react-router", async () => {
 
 describe("UCSBOrganizationForm tests", () => {
   const queryClient = new QueryClient();
-
-  const expectedHeaders = [
-    "Organization Code",
-    "Organization Translation",
-    "Organization Translation Short",
-  ];
   const testId = "UCSBOrganizationForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -36,45 +28,49 @@ describe("UCSBOrganizationForm tests", () => {
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
 
-    expectedHeaders.forEach((headerText) => {
-      const header = screen.getByText(headerText);
-      expect(header).toBeInTheDocument();
-    });
-
-    expect(screen.getByTestId(`${testId}-orgCode`)).toBeInTheDocument();
-    expect(
-      screen.getByTestId(`${testId}-orgTranslationShort`),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-orgTranslation`)).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-inactive`)).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-cancel`)).toBeInTheDocument();
+    // Check that fields are empty (Kills mutations in defaultValues: initialContents || {})
+    expect(screen.getByTestId(`${testId}-orgCode`)).toHaveValue("");
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toHaveValue("");
+    expect(screen.getByTestId(`${testId}-inactive`)).toHaveValue("");
   });
 
   test("renders correctly when passing in initialContents", async () => {
+    const organization = ucsbOrganizationsFixtures.oneOrganization;
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <UCSBOrganizationForm
-            initialContents={ucsbOrganizationsFixtures.oneOrganization}
-          />
+          <UCSBOrganizationForm initialContents={organization} />
         </Router>
       </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
 
-    expectedHeaders.forEach((headerText) => {
-      const header = screen.getByText(headerText);
-      expect(header).toBeInTheDocument();
-    });
+    // Verify values are correctly mapped (Kills mutations that swap or delete mapping)
+    expect(screen.getByTestId(`${testId}-orgCode`)).toHaveValue(
+      organization.orgCode,
+    );
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toHaveValue(
+      organization.orgTranslation,
+    );
+    expect(screen.getByTestId(`${testId}-orgTranslationShort`)).toHaveValue(
+      organization.orgTranslationShort,
+    );
+    expect(screen.getByTestId(`${testId}-inactive`)).toHaveValue(
+      String(organization.inactive),
+    );
+  });
 
-    expect(screen.getByTestId(`${testId}-orgCode`)).toBeInTheDocument();
-    expect(
-      screen.getByTestId(`${testId}-orgTranslationShort`),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-orgTranslation`)).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-inactive`)).toBeInTheDocument();
+  test("renders correctly with a custom button label", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <UCSBOrganizationForm buttonLabel="Update" />
+        </Router>
+      </QueryClientProvider>,
+    );
+    // Kills mutation of the default parameter 'buttonLabel = "Create"'
+    expect(await screen.findByText(/Update/)).toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
@@ -85,11 +81,8 @@ describe("UCSBOrganizationForm tests", () => {
         </Router>
       </QueryClientProvider>,
     );
-    expect(await screen.findByTestId(`${testId}-cancel`)).toBeInTheDocument();
-    const cancelButton = screen.getByTestId(`${testId}-cancel`);
-
+    const cancelButton = await screen.findByTestId(`${testId}-cancel`);
     fireEvent.click(cancelButton);
-
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 
@@ -102,11 +95,13 @@ describe("UCSBOrganizationForm tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByText(/Create/)).toBeInTheDocument();
-    const submitButton = screen.getByText(/Create/);
+    const submitButton = await screen.findByTestId(`${testId}-submit`);
     fireEvent.click(submitButton);
 
-    await screen.findByText(/Organization Code is required/);
+    // Validation messages (Kills logic mutations in 'required' constraints)
+    expect(
+      await screen.findByText(/Organization Code is required/),
+    ).toBeInTheDocument();
     expect(
       screen.getByText(/Organization Translation is required/),
     ).toBeInTheDocument();
@@ -115,6 +110,7 @@ describe("UCSBOrganizationForm tests", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/Status is required/)).toBeInTheDocument();
 
+    // Check Max Length (Kills maxLength mutation)
     const orgTranslationInput = screen.getByTestId(`${testId}-orgTranslation`);
     fireEvent.change(orgTranslationInput, {
       target: { value: "a".repeat(256) },

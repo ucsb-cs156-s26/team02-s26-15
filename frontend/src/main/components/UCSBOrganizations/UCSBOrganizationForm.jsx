@@ -26,6 +26,7 @@ function UCSBOrganizationForm({
           data-testid={testIdPrefix + "-orgCode"}
           id="orgCode"
           type="text"
+          isInvalid={Boolean(errors.orgCode)}
           {...register("orgCode", {
             required: "Organization Code is required.",
           })}
@@ -94,7 +95,9 @@ function UCSBOrganizationForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>{buttonLabel}</Button>
+      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+        {buttonLabel}
+      </Button>
 
       <Button
         variant="Secondary"
