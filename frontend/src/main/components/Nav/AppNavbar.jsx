@@ -72,7 +72,7 @@ export default function AppNavbar({
                     Placeholder
                   </Nav.Link>
                   <Nav.Link as={Link} to="/placeholder">
-                    HelpRequest
+                    Help Requests
                   </Nav.Link>
                 </>
               ) : (
