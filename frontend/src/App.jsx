@@ -44,7 +44,10 @@ function App() {
         <>
           <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
           <Route path="/restaurants" element={<RestaurantIndexPage />} />
-          <Route path="/menuItemReviews" element={<MenuItemReviewsIndexPage />} />
+          <Route
+            path="/menuItemReviews"
+            element={<MenuItemReviewsIndexPage />}
+          />
           <Route
             path="/ucsborganizations"
             element={<UCSBOrganizationsIndexPage />}
@@ -62,7 +65,10 @@ function App() {
             path="/restaurants/edit/:id"
             element={<RestaurantEditPage />}
           />
-          <Route path="/restaurants/create" element={<RestaurantCreatePage />} />
+          <Route
+            path="/restaurants/create"
+            element={<RestaurantCreatePage />}
+          />
 
           <Route
             path="/menuItemReviews/edit/:id"
@@ -86,7 +92,10 @@ function App() {
             path="/placeholder/edit/:id"
             element={<PlaceholderEditPage />}
           />
-          <Route path="/placeholder/create" element={<PlaceholderCreatePage />} />
+          <Route
+            path="/placeholder/create"
+            element={<PlaceholderCreatePage />}
+          />
         </>
       )}
     </Routes>
