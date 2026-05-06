@@ -1,4 +1,3 @@
-import React from "react";
 import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
 import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
 
