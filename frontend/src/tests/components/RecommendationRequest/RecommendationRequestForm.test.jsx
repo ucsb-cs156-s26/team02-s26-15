@@ -90,7 +90,7 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.getByText(/Date Needed is required./)).toBeInTheDocument();
   });
 
-  test("Correct Error messages on bad email", async () => {
+  test("Correct Error message on bad requester email only", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
@@ -99,16 +99,59 @@ describe("RecommendationRequestForm tests", () => {
       </QueryClientProvider>,
     );
     await screen.findByTestId(`${testId}-requesterEmail`);
-    const requesterEmailField = screen.getByTestId(`${testId}-requesterEmail`);
-    const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
-    const submitButton = screen.getByTestId(`${testId}-submit`);
 
-    fireEvent.change(requesterEmailField, { target: { value: "bad-email" } });
-    fireEvent.change(professorEmailField, { target: { value: "also-bad" } });
-    fireEvent.click(submitButton);
+    fireEvent.change(screen.getByTestId(`${testId}-requesterEmail`), {
+      target: { value: "bad-email" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-professorEmail`), {
+      target: { value: "prof@ucsb.edu" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-explanation`), {
+      target: { value: "PhD" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-dateRequested`), {
+      target: { value: "2022-01-02T12:00:00" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-dateNeeded`), {
+      target: { value: "2022-04-02T12:00:00" },
+    });
+    fireEvent.click(screen.getByTestId(`${testId}-submit`));
 
-    const errors = await screen.findAllByText(/Invalid email format./);
-    expect(errors.length).toBeGreaterThanOrEqual(1);
+    const errors = await screen.findAllByText("Invalid email format.");
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toHaveTextContent("Invalid email format.");
+  });
+
+  test("Correct Error message on bad professor email only", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+    await screen.findByTestId(`${testId}-professorEmail`);
+
+    fireEvent.change(screen.getByTestId(`${testId}-requesterEmail`), {
+      target: { value: "test@ucsb.edu" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-professorEmail`), {
+      target: { value: "bad-email" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-explanation`), {
+      target: { value: "PhD" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-dateRequested`), {
+      target: { value: "2022-01-02T12:00:00" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-dateNeeded`), {
+      target: { value: "2022-04-02T12:00:00" },
+    });
+    fireEvent.click(screen.getByTestId(`${testId}-submit`));
+
+    const errors = await screen.findAllByText("Invalid email format.");
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toHaveTextContent("Invalid email format.");
   });
 
   test("No Error messages on good input", async () => {
