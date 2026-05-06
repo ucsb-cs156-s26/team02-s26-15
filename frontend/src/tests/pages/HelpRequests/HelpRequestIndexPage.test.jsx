@@ -87,6 +87,9 @@ describe("HelpRequestIndexPage tests", () => {
         screen.getByTestId(`${testId}-cell-row-0-col-id`),
       ).toHaveTextContent("2");
     });
+
+    expect(screen.queryByText(/Create HelpRequest/)).not.toBeInTheDocument();
+    
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "3",
     );
@@ -114,10 +117,10 @@ describe("HelpRequestIndexPage tests", () => {
 
     // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
     expect(
-      screen.queryByTestId("RestaurantTable-cell-row-0-col-Delete-button"),
+      screen.queryByTestId("HelpRequestTable-cell-row-0-col-Delete-button"),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByTestId("RestaurantTable-cell-row-0-col-Edit-button"),
+      screen.queryByTestId("HelpRequestTable-cell-row-0-col-Edit-button"),
     ).not.toBeInTheDocument();
   });
 
