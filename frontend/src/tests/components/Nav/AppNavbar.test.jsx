@@ -7,6 +7,10 @@ import AppNavbar from "main/components/Nav/AppNavbar";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { expect } from "vitest";
 
+vi.mock("main/utils/systemInfo", () => ({
+  useSystemInfo: vi.fn(() => undefined),
+}));
+
 describe("AppNavbar tests", () => {
   const queryClient = new QueryClient();
 
@@ -45,9 +49,13 @@ describe("AppNavbar tests", () => {
     expect(adminMenu).toBeInTheDocument();
   });
 
-  test("renders H2Console and Swagger links correctly", async () => {
+  test("renders only H2Console link correctly", async () => {
     const currentUser = currentUserFixtures.adminUser;
-    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const systemInfo = {
+      springH2ConsoleEnabled: true,
+      showSwaggerUILink: false,
+    };
 
     const doLogin = vi.fn();
 
@@ -64,8 +72,65 @@ describe("AppNavbar tests", () => {
     );
 
     await screen.findByText("H2Console");
-    const swaggerMenu = screen.getByText("Swagger");
-    expect(swaggerMenu).toBeInTheDocument();
+
+    expect(screen.getByText("H2Console")).toBeInTheDocument();
+    expect(screen.queryByText("Swagger")).not.toBeInTheDocument();
+  });
+
+  test("renders only Swagger link correctly", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    const systemInfo = {
+      springH2ConsoleEnabled: false,
+      showSwaggerUILink: true,
+    };
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("Swagger");
+
+    expect(screen.queryByText("H2Console")).not.toBeInTheDocument();
+    expect(screen.getByText("Swagger")).toBeInTheDocument();
+  });
+
+  test("does NOT render H2Console or Swagger links when both systemInfo flags are false", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    const systemInfo = {
+      springH2ConsoleEnabled: false,
+      showSwaggerUILink: false,
+    };
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("Welcome, phtcon@ucsb.edu");
+
+    expect(screen.queryByText("H2Console")).not.toBeInTheDocument();
+    expect(screen.queryByText("Swagger")).not.toBeInTheDocument();
   });
 
   test("renders the AppNavbarLocalhost when on http://localhost:3000", async () => {
@@ -212,6 +277,29 @@ describe("AppNavbar tests", () => {
 
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
+  });
+  test("renders the recommendationrequest link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("Recommendation Request");
+    const link = screen.getByText("Recommendation Request");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/recommendationrequest");
   });
 
   test("when oauthlogin undefined, default value is used", async () => {
