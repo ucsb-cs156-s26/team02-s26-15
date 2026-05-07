@@ -141,7 +141,6 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-
           <Route
             path="/placeholder/edit/:id"
             element={<PlaceholderEditPage />}
