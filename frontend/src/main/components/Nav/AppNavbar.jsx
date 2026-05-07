@@ -37,10 +37,6 @@ export default function AppNavbar({
                   Menu Item Reviews
                 </Nav.Link>
 
-                <Nav.Link as={Link} to="/ucsborganizations">
-                  UCSB Organizations
-                </Nav.Link>
-
                 <Nav.Link as={Link} to="/placeholder">
                   Placeholder
                 </Nav.Link>
@@ -56,7 +52,9 @@ export default function AppNavbar({
                 )}
 
                 {systemInfoData?.showSwaggerUILink && (
-                  <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                  <Nav.Link href="/swagger-ui/index.html">
+                    Swagger
+                  </Nav.Link>
                 )}
               </>
             ) : (
