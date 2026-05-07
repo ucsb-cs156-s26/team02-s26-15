@@ -213,7 +213,7 @@ describe("AppNavbar tests", () => {
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
   });
-   test("renders the recommendationrequest link correctly", async () => {
+  test("renders the recommendationrequest link correctly", async () => {
     const currentUser = currentUserFixtures.userOnly;
     const systemInfo = systemInfoFixtures.showingBoth;
 
