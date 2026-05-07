@@ -15,6 +15,10 @@ import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviews
 import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
 import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
 
+import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
+import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
+import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
+
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
@@ -26,10 +30,6 @@ import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
 import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
 import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
 import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
-
-import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
-import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
-import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
@@ -51,11 +51,19 @@ function App() {
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+
           <Route path="/restaurants" element={<RestaurantIndexPage />} />
 
           <Route
             path="/menuItemReviews"
             element={<MenuItemReviewsIndexPage />}
+          />
+
+          <Route path="/articles" element={<ArticlesIndexPage />} />
+
+          <Route
+            path="/diningcommonsmenuitem"
+            element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
 
           <Route
@@ -64,13 +72,6 @@ function App() {
           />
 
           <Route path="/placeholder" element={<PlaceholderIndexPage />} />
-
-          <Route path="/articles" element={<ArticlesIndexPage />} />
-
-          <Route
-            path="/diningcommonsmenuitem"
-            element={<UCSBDiningCommonsMenuItemIndexPage />}
-          />
         </>
       )}
 
@@ -97,6 +98,18 @@ function App() {
             element={<MenuItemReviewsCreatePage />}
           />
 
+          <Route path="/articles/edit/:id" element={<ArticlesEditPage />} />
+          <Route path="/articles/create" element={<ArticlesCreatePage />} />
+
+          <Route
+            path="/diningcommonsmenuitem/edit/:id"
+            element={<UCSBDiningCommonsMenuItemEditPage />}
+          />
+          <Route
+            path="/diningcommonsmenuitem/create"
+            element={<UCSBDiningCommonsMenuItemCreatePage />}
+          />
+
           <Route
             path="/ucsborganizations/edit/:orgCode"
             element={<UCSBOrganizationsEditPage />}
@@ -113,18 +126,6 @@ function App() {
           <Route
             path="/placeholder/create"
             element={<PlaceholderCreatePage />}
-          />
-
-          <Route path="/articles/edit/:id" element={<ArticlesEditPage />} />
-          <Route path="/articles/create" element={<ArticlesCreatePage />} />
-
-          <Route
-            path="/diningcommonsmenuitem/edit/:id"
-            element={<UCSBDiningCommonsMenuItemEditPage />}
-          />
-          <Route
-            path="/diningcommonsmenuitem/create"
-            element={<UCSBDiningCommonsMenuItemCreatePage />}
           />
         </>
       )}
