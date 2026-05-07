@@ -42,7 +42,13 @@ Default.parameters = {
         `PUT to /api/menuitemreview\n\n${JSON.stringify(body, null, 2)}`,
       );
 
-      return HttpResponse.json({}, { status: 200 });
+      return HttpResponse.json(
+        {
+          id: 1,
+          ...body,
+        },
+        { status: 200 },
+      );
     }),
   ],
 };
