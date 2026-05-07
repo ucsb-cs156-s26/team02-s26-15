@@ -77,6 +77,10 @@ export default function AppNavbar({
                   Placeholder
                 </Nav.Link>
 
+                <Nav.Link as={Link} to="/helprequest">
+                  HelpRequest
+                </Nav.Link>
+
                 {hasRole(currentUser, "ROLE_ADMIN") && (
                   <NavDropdown
                     title="Admin"

@@ -59,21 +59,33 @@ function App() {
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+
           <Route path="/restaurants" element={<RestaurantIndexPage />} />
+
           <Route
             path="/menuItemReviews"
             element={<MenuItemReviewsIndexPage />}
           />
+
           <Route path="/articles" element={<ArticlesIndexPage />} />
+
           <Route path="/helprequest" element={<HelpRequestIndexPage />} />
+
+          <Route
+            path="/recommendationrequest"
+            element={<RecommendationRequestIndexPage />}
+          />
+
           <Route
             path="/diningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
+
           <Route
             path="/ucsborganizations"
             element={<UCSBOrganizationsIndexPage />}
           />
+
           <Route path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
@@ -114,6 +126,15 @@ function App() {
           />
 
           <Route
+            path="/recommendationrequest/edit/:id"
+            element={<RecommendationRequestEditPage />}
+          />
+          <Route
+            path="/recommendationrequest/create"
+            element={<RecommendationRequestCreatePage />}
+          />
+
+          <Route
             path="/diningcommonsmenuitem/edit/:id"
             element={<UCSBDiningCommonsMenuItemEditPage />}
           />
@@ -130,38 +151,7 @@ function App() {
             path="/ucsborganizations/create"
             element={<UCSBOrganizationsCreatePage />}
           />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/recommendationrequest"
-            element={<RecommendationRequestIndexPage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/recommendationrequest/edit/:id"
-            element={<RecommendationRequestEditPage />}
-          />
-          <Route
-            exact
-            path="/recommendationrequest/create"
-            element={<RecommendationRequestCreatePage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
+
           <Route
             path="/placeholder/edit/:id"
             element={<PlaceholderEditPage />}
