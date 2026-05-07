@@ -19,14 +19,6 @@ import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganiz
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
 
-import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
-import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
-import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
-
-import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
-import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
-import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
-
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -64,13 +56,6 @@ function App() {
             element={<UCSBOrganizationsIndexPage />}
           />
 
-          <Route
-            path="/diningcommonsmenuitem"
-            element={<UCSBDiningCommonsMenuItemIndexPage />}
-          />
-
-          <Route path="/articles" element={<ArticlesIndexPage />} />
-
           <Route path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
@@ -78,6 +63,7 @@ function App() {
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
+
           <Route path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
 
           <Route
@@ -108,26 +94,6 @@ function App() {
           <Route
             path="/ucsborganizations/create"
             element={<UCSBOrganizationsCreatePage />}
-          />
-
-          <Route
-            path="/diningcommonsmenuitem/edit/:id"
-            element={<UCSBDiningCommonsMenuItemEditPage />}
-          />
-
-          <Route
-            path="/diningcommonsmenuitem/create"
-            element={<UCSBDiningCommonsMenuItemCreatePage />}
-          />
-
-          <Route
-            path="/articles/edit/:id"
-            element={<ArticlesEditPage />}
-          />
-
-          <Route
-            path="/articles/create"
-            element={<ArticlesCreatePage />}
           />
 
           <Route
