@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -175,20 +175,28 @@
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">151x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">141x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">141x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,11 +210,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">157x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">157x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">157x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,116 +299,131 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import { Link } from "react-router";
+import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
+import { useSystemInfo } from "main/utils/systemInfo";
 import { hasRole } from "main/utils/useCurrentUser";
-import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
+&nbsp;
+function AppNavbarLocalhost() {
+  return (
+    &lt;Navbar.Text data-testid="AppNavbarLocalhost" className="me-3"&gt;
+      &lt;span data-testid="AppNavbarLocalhost-message1"&gt;
+        Running on http://localhost:3000/ with no backend.
+      &lt;/span&gt;
+      &lt;br /&gt;
+      &lt;span data-testid="AppNavbarLocalhost-message2"&gt;
+        You probably want http://localhost:8080 instead.
+      &lt;/span&gt;
+    &lt;/Navbar.Text&gt;
+  );
+}
 &nbsp;
 export default function AppNavbar({
   currentUser,
   systemInfo,
   doLogout,
-  currentUrl = window.location.href,
+  oauthLogin = "/oauth2/authorization/google",
 }) {
-  var oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
+  const systemInfoFromHook = useSystemInfo();
+  const systemInfoData = systemInfo || systemInfoFromHook;
+&nbsp;
+  const isLocalhost =
+    (window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1") &amp;&amp;
+    window.location.port === "3000";
 &nbsp;
   return (
-    &lt;&gt;
-      {(currentUrl.startsWith("http://localhost:3000") ||
-        currentUrl.startsWith("http://127.0.0.1:3000")) &amp;&amp; (
-        &lt;AppNavbarLocalhost url={currentUrl} /&gt;
-      )}
+    &lt;Navbar expand="lg" data-testid="AppNavbar"&gt;
+      &lt;Container&gt;
+        &lt;Navbar.Brand as={Link} to="/"&gt;
+          Team02
+        &lt;/Navbar.Brand&gt;
 &nbsp;
-      &lt;Navbar
-        expand="xl"
-        variant="dark"
-        bg="dark"
-        sticky="top"
-        data-testid="AppNavbar"
-      &gt;
-        &lt;Container&gt;
-          &lt;Navbar.Brand as={Link} to="/"&gt;
-            team02
-          &lt;/Navbar.Brand&gt;
+        &lt;Navbar.Toggle aria-controls="basic-navbar-nav" /&gt;
 &nbsp;
-          &lt;Navbar.Toggle /&gt;
-&nbsp;
+        &lt;Navbar.Collapse id="basic-navbar-nav"&gt;
           &lt;Nav className="me-auto"&gt;
-            {systemInfo?.springH2ConsoleEnabled &amp;&amp; (
+            {currentUser &amp;&amp; currentUser.loggedIn &amp;&amp; (
               &lt;&gt;
-                &lt;Nav.Link href="/h2-console"&gt;H2Console&lt;/Nav.Link&gt;
-              &lt;/&gt;
-            )}
-            {systemInfo?.showSwaggerUILink &amp;&amp; (
-              &lt;&gt;
-                &lt;Nav.Link href="/swagger-ui/index.html"&gt;Swagger&lt;/Nav.Link&gt;
+                &lt;Nav.Link as={Link} to="/ucsbdates"&gt;
+                  UCSB Dates
+                &lt;/Nav.Link&gt;
+&nbsp;
+                &lt;Nav.Link as={Link} to="/restaurants"&gt;
+                  Restaurants
+                &lt;/Nav.Link&gt;
+&nbsp;
+                &lt;Nav.Link as={Link} to="/diningcommonsmenuitem"&gt;
+                  UCSBDiningCommonsMenuItem
+                &lt;/Nav.Link&gt;
+&nbsp;
+                &lt;Nav.Link as={Link} to="/ucsborganizations"&gt;
+                  UCSB Organizations
+                &lt;/Nav.Link&gt;
+&nbsp;
+                &lt;Nav.Link as={Link} to="/menuItemReviews"&gt;
+                  Menu Item Reviews
+                &lt;/Nav.Link&gt;
+&nbsp;
+                &lt;Nav.Link as={Link} to="/articles"&gt;
+                  Articles
+                &lt;/Nav.Link&gt;
+&nbsp;
+                &lt;Nav.Link as={Link} to="/recommendationrequest"&gt;
+                  Recommendation Request
+                &lt;/Nav.Link&gt;
+&nbsp;
+                &lt;Nav.Link as={Link} to="/placeholder"&gt;
+                  Placeholder
+                &lt;/Nav.Link&gt;
+&nbsp;
+                {hasRole(currentUser, "ROLE_ADMIN") &amp;&amp; (
+                  &lt;NavDropdown
+                    title="Admin"
+                    id="appnavbar-admin-dropdown"
+                    data-testid="appnavbar-admin-dropdown"
+                  &gt;
+                    &lt;NavDropdown.Item as={Link} to="/admin/users"&gt;
+                      Users
+                    &lt;/NavDropdown.Item&gt;
+                  &lt;/NavDropdown&gt;
+                )}
+&nbsp;
+                {systemInfoData?.springH2ConsoleEnabled &amp;&amp; (
+                  &lt;Nav.Link href="/h2-console"&gt;H2Console&lt;/Nav.Link&gt;
+                )}
+&nbsp;
+                {systemInfoData?.showSwaggerUILink &amp;&amp; (
+                  &lt;Nav.Link href="/swagger-ui/index.html"&gt;Swagger&lt;/Nav.Link&gt;
+                )}
               &lt;/&gt;
             )}
           &lt;/Nav&gt;
 &nbsp;
-          &lt;&gt;
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          &lt;/&gt;
+          &lt;Nav className="ml-auto"&gt;
+            {isLocalhost &amp;&amp; &lt;AppNavbarLocalhost /&gt;}
 &nbsp;
-          &lt;Navbar.Collapse className="justify-content-between"&gt;
-            &lt;Nav className="mr-auto"&gt;
-              {hasRole(currentUser, "ROLE_ADMIN") &amp;&amp; (
-                &lt;NavDropdown
-                  title="Admin"
-                  id="appnavbar-admin-dropdown"
-                  data-testid="appnavbar-admin-dropdown"
-                &gt;
-                  &lt;NavDropdown.Item href="/admin/users"&gt;Users&lt;/NavDropdown.Item&gt;
-                &lt;/NavDropdown&gt;
-              )}
-              {currentUser &amp;&amp; currentUser.loggedIn ? (
-                &lt;&gt;
-                  &lt;Nav.Link as={Link} to="/restaurants"&gt;
-                    Restaurants
-                  &lt;/Nav.Link&gt;
-                  &lt;Nav.Link as={Link} to="/diningcommonsmenuitem"&gt;
-                    UCSBDiningCommonsMenuItem
-                  &lt;/Nav.Link&gt;
-                  &lt;Nav.Link as={Link} to="/ucsbdates"&gt;
-                    UCSB Dates
-                  &lt;/Nav.Link&gt;
-                  &lt;Nav.Link as={Link} to="/ucsborganizations"&gt;
-                    UCSB Organizations
-                  &lt;/Nav.Link&gt;
-                  &lt;Nav.Link as={Link} to="/recommendationrequest"&gt;
-                    Recommendation Request
-                  &lt;/Nav.Link&gt;
-                  &lt;Nav.Link as={Link} to="/placeholder"&gt;
-                    Placeholder
-                  &lt;/Nav.Link&gt;
-                  &lt;Nav.Link as={Link} to="/menuItemReviews"&gt;
-                    Menu Item Reviews
-                  &lt;/Nav.Link&gt;
-                  &lt;Nav.Link as={Link} to="/articles"&gt;
-                    Articles
-                  &lt;/Nav.Link&gt;
-                &lt;/&gt;
-              ) : (
-                &lt;&gt;&lt;/&gt;
-              )}
-            &lt;/Nav&gt;
-&nbsp;
-            &lt;Nav className="ml-auto"&gt;
-              {currentUser &amp;&amp; currentUser.loggedIn ? (
-                &lt;&gt;
-                  &lt;Navbar.Text className="me-3" as={Link} to="/profile"&gt;
-                    Welcome, {currentUser.root.user.email}
-                  &lt;/Navbar.Text&gt;
-                  &lt;Button onClick={doLogout}&gt;Log Out&lt;/Button&gt;
-                &lt;/&gt;
-              ) : (
-                &lt;Button href={oauthLogin}&gt;Log In&lt;/Button&gt;
-              )}
-            &lt;/Nav&gt;
-          &lt;/Navbar.Collapse&gt;
-        &lt;/Container&gt;
-      &lt;/Navbar&gt;
-    &lt;/&gt;
+            {currentUser &amp;&amp; currentUser.loggedIn ? (
+              &lt;&gt;
+                &lt;Navbar.Text className="me-3" as={Link} to="/profile"&gt;
+                  Welcome, {currentUser.root.user.email}
+                &lt;/Navbar.Text&gt;
+                &lt;Button onClick={doLogout}&gt;Log Out&lt;/Button&gt;
+              &lt;/&gt;
+            ) : (
+              &lt;Button href={oauthLogin}&gt;Log In&lt;/Button&gt;
+            )}
+          &lt;/Nav&gt;
+        &lt;/Navbar.Collapse&gt;
+      &lt;/Container&gt;
+    &lt;/Navbar&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -406,7 +433,7 @@ export default function AppNavbar({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-07T07:12:17.002Z
+                at 2026-05-07T07:24:42.719Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
