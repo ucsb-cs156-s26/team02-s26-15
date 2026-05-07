@@ -11,6 +11,10 @@ import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
+import HelpRequestIndexPage from "main/pages/HelpRequests/HelpRequestIndexPage";
+import HelpRequestEditPage from "main/pages/HelpRequests/HelpRequestEditPage";
+import HelpRequestCreatePage from "main/pages/HelpRequests/HelpRequestCreatePage";
+
 import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
 import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
 import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
@@ -55,26 +59,21 @@ function App() {
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
-
           <Route path="/restaurants" element={<RestaurantIndexPage />} />
-
           <Route
             path="/menuItemReviews"
             element={<MenuItemReviewsIndexPage />}
           />
-
           <Route path="/articles" element={<ArticlesIndexPage />} />
-
+          <Route path="/helprequest" element={<HelpRequestIndexPage />} />
           <Route
             path="/diningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
-
           <Route
             path="/ucsborganizations"
             element={<UCSBOrganizationsIndexPage />}
           />
-
           <Route path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
@@ -97,7 +96,6 @@ function App() {
             path="/menuItemReviews/edit/:id"
             element={<MenuItemReviewsEditPage />}
           />
-
           <Route
             path="/menuItemReviews/create"
             element={<MenuItemReviewsCreatePage />}
@@ -105,6 +103,15 @@ function App() {
 
           <Route path="/articles/edit/:id" element={<ArticlesEditPage />} />
           <Route path="/articles/create" element={<ArticlesCreatePage />} />
+
+          <Route
+            path="/helprequest/edit/:id"
+            element={<HelpRequestEditPage />}
+          />
+          <Route
+            path="/helprequest/create"
+            element={<HelpRequestCreatePage />}
+          />
 
           <Route
             path="/diningcommonsmenuitem/edit/:id"
@@ -116,8 +123,7 @@ function App() {
           />
 
           <Route
-            exact
-            path="/ucsborganizations/edit/:id"
+            path="/ucsborganizations/edit/:orgCode"
             element={<UCSBOrganizationsEditPage />}
           />
           <Route
