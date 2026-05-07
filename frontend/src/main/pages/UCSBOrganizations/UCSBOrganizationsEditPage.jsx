@@ -6,7 +6,7 @@ import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBOrganizationsEditPage({ storybook = false }) {
-  let { id } = useParams();
+  let { orgCode } = useParams();
 
   const {
     data: organization,
@@ -14,13 +14,13 @@ export default function UCSBOrganizationsEditPage({ storybook = false }) {
     _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/ucsborganizations?orgCode=${id}`],
+    [`/api/ucsborganizations?orgCode=${orgCode}`],
     {
       // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
       url: `/api/ucsborganizations`,
       params: {
-        orgCode: id,
+        orgCode: orgCode,
       },
     },
   );
@@ -29,7 +29,7 @@ export default function UCSBOrganizationsEditPage({ storybook = false }) {
     url: "/api/ucsborganizations",
     method: "PUT",
     params: {
-      orgCode: id,
+      orgCode: orgCode,
     },
     data: {
       orgTranslation: organization.orgTranslation,
@@ -46,7 +46,7 @@ export default function UCSBOrganizationsEditPage({ storybook = false }) {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/ucsborganizations?orgCode=${id}`],
+    [`/api/ucsborganizations?orgCode=${orgCode}`],
   );
 
   const { isSuccess } = mutation;
