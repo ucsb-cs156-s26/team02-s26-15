@@ -37,39 +37,22 @@ function App() {
       )}
 
       {hasRole(currentUser, "ROLE_USER") && (
-        <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+        <>
+          <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+          <Route path="/restaurants" element={<RestaurantIndexPage />} />
+          <Route
+            path="/menuItemReviews"
+            element={<MenuItemReviewsIndexPage />}
+          />
+          <Route path="/placeholder" element={<PlaceholderIndexPage />} />
+        </>
       )}
 
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
           <Route path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
-        </>
-      )}
 
-      {/* ✅ FIX: Index route ALWAYS available */}
-      <Route path="/menuItemReviews" element={<MenuItemReviewsIndexPage />} />
-
-      {/* Admin-only create/edit */}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            path="/menuItemReviews/edit/:id"
-            element={<MenuItemReviewsEditPage />}
-          />
-          <Route
-            path="/menuItemReviews/create"
-            element={<MenuItemReviewsCreatePage />}
-          />
-        </>
-      )}
-
-      {hasRole(currentUser, "ROLE_USER") && (
-        <Route path="/restaurants" element={<RestaurantIndexPage />} />
-      )}
-
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
           <Route
             path="/restaurants/edit/:id"
             element={<RestaurantEditPage />}
@@ -78,15 +61,16 @@ function App() {
             path="/restaurants/create"
             element={<RestaurantCreatePage />}
           />
-        </>
-      )}
 
-      {hasRole(currentUser, "ROLE_USER") && (
-        <Route path="/placeholder" element={<PlaceholderIndexPage />} />
-      )}
+          <Route
+            path="/menuItemReviews/edit/:id"
+            element={<MenuItemReviewsEditPage />}
+          />
+          <Route
+            path="/menuItemReviews/create"
+            element={<MenuItemReviewsCreatePage />}
+          />
 
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
           <Route
             path="/placeholder/edit/:id"
             element={<PlaceholderEditPage />}
