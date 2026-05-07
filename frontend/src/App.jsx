@@ -11,15 +11,13 @@ import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
-<<<<<<< HEAD
 import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
-=======
+
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
->>>>>>> 0267a31352bbfe5fa99902b981ca71c95d40126f
 
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
@@ -107,13 +105,13 @@ function App() {
         <>
           <Route
             exact
-<<<<<<< HEAD
             path="/diningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
-=======
+          />
+          <Route
+            exact
             path="/ucsborganizations"
             element={<UCSBOrganizationsIndexPage />}
->>>>>>> 0267a31352bbfe5fa99902b981ca71c95d40126f
           />
         </>
       )}
@@ -121,7 +119,6 @@ function App() {
         <>
           <Route
             exact
-<<<<<<< HEAD
             path="/diningcommonsmenuitem/edit/:id"
             element={<UCSBDiningCommonsMenuItemEditPage />}
           />
@@ -129,7 +126,9 @@ function App() {
             exact
             path="/diningcommonsmenuitem/create"
             element={<UCSBDiningCommonsMenuItemCreatePage />}
-=======
+          />
+          <Route
+            exact
             path="/ucsborganizations/edit/:orgCode"
             element={<UCSBOrganizationsEditPage />}
           />
@@ -137,7 +136,6 @@ function App() {
             exact
             path="/ucsborganizations/create"
             element={<UCSBOrganizationsCreatePage />}
->>>>>>> 0267a31352bbfe5fa99902b981ca71c95d40126f
           />
         </>
       )}
