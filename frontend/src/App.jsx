@@ -93,6 +93,7 @@ function App() {
             path="/menuItemReviews/edit/:id"
             element={<MenuItemReviewsEditPage />}
           />
+
           <Route
             path="/menuItemReviews/create"
             element={<MenuItemReviewsCreatePage />}
@@ -111,7 +112,8 @@ function App() {
           />
 
           <Route
-            path="/ucsborganizations/edit/:orgCode"
+            exact
+            path="/ucsborganizations/edit/:id"
             element={<UCSBOrganizationsEditPage />}
           />
           <Route
