@@ -278,6 +278,29 @@ describe("AppNavbar tests", () => {
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
   });
+  test("renders the recommendationrequest link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("Recommendation Request");
+    const link = screen.getByText("Recommendation Request");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/recommendationrequest");
+  });
 
   test("when oauthlogin undefined, default value is used", async () => {
     const currentUser = currentUserFixtures.notLoggedIn;
