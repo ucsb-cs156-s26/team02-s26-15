@@ -53,8 +53,20 @@ export default function AppNavbar({
                   Restaurants
                 </Nav.Link>
 
+                <Nav.Link as={Link} to="/diningcommonsmenuitem">
+                  UCSBDiningCommonsMenuItem
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/ucsborganizations">
+                  UCSB Organizations
+                </Nav.Link>
+
                 <Nav.Link as={Link} to="/menuItemReviews">
                   Menu Item Reviews
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/articles">
+                  Articles
                 </Nav.Link>
 
                 <Nav.Link as={Link} to="/placeholder">
@@ -89,7 +101,7 @@ export default function AppNavbar({
 
             {currentUser && currentUser.loggedIn ? (
               <>
-                <Navbar.Text className="me-3">
+                <Navbar.Text className="me-3" as={Link} to="/profile">
                   Welcome, {currentUser.root.user.email}
                 </Navbar.Text>
                 <Button onClick={doLogout}>Log Out</Button>
