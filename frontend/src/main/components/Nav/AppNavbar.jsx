@@ -77,6 +77,10 @@ export default function AppNavbar({
                   Placeholder
                 </Nav.Link>
 
+                <Nav.Link as={Link} to="/helprequest">
+                  HelpRequest
+                </Nav.Link>
+
                 {hasRole(currentUser, "ROLE_ADMIN") && (
                   <NavDropdown
                     title="Admin"
@@ -114,61 +118,6 @@ export default function AppNavbar({
               <Button href={oauthLogin}>Log In</Button>
             )}
           </Nav>
-
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
-
-          <Navbar.Collapse className="justify-content-between">
-            <Nav className="mr-auto">
-              {hasRole(currentUser, "ROLE_ADMIN") && (
-                <NavDropdown
-                  title="Admin"
-                  id="appnavbar-admin-dropdown"
-                  data-testid="appnavbar-admin-dropdown"
-                >
-                  <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
-                </NavDropdown>
-              )}
-              {currentUser && currentUser.loggedIn ? (
-                <>
-                  <Nav.Link as={Link} to="/restaurants">
-                    Restaurants
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdates">
-                    UCSB Dates
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsborganizations">
-                    UCSB Organizations
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">
-                    Placeholder
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/helprequest">
-                    HelpRequest
-                  </Nav.Link>
-                </>
-              ) : (
-                <></>
-              )}
-            </Nav>
-
-            <Nav className="ml-auto">
-              {currentUser && currentUser.loggedIn ? (
-                <>
-                  <Navbar.Text className="me-3" as={Link} to="/profile">
-                    Welcome, {currentUser.root.user.email}
-                  </Navbar.Text>
-                  <Button onClick={doLogout}>Log Out</Button>
-                </>
-              ) : (
-                <Button href={oauthLogin}>Log In</Button>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
         </Navbar.Collapse>
       </Container>
     </Navbar>
