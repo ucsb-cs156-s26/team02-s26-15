@@ -52,9 +52,7 @@ export default function AppNavbar({
                 )}
 
                 {systemInfoData?.showSwaggerUILink && (
-                  <Nav.Link href="/swagger-ui/index.html">
-                    Swagger
-                  </Nav.Link>
+                  <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
                 )}
               </>
             ) : (
