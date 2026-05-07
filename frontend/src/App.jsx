@@ -92,6 +92,12 @@ function App() {
             path="/menuItemReviews/edit/:id"
             element={<MenuItemReviewsEditPage />}
           />
+
+          <Route
+            path="/menuItemReviews/create"
+            element={<MenuItemReviewsCreatePage />}
+          />
+
           <Route
             exact
             path="/ucsborganizations/edit/:id"
