@@ -61,7 +61,7 @@ describe("MenuItemReviewsCreatePage tests", () => {
     });
   });
 
-  test("on submit, makes request to backend, and redirects to /menuItemReviews", async () => {
+  test("on submit, makes request to backend, and redirects to /menuitemreviews", async () => {
     const queryClient = new QueryClient();
 
     const menuItemReview = {
@@ -118,6 +118,6 @@ describe("MenuItemReviewsCreatePage tests", () => {
     expect(mockToast).toBeCalledWith(
       "New MenuItemReview Created - id: 3 itemId: 2",
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/menuItemReviews" });
+    expect(mockNavigate).toBeCalledWith({ to: "/menuitemreviews" });
   });
 });

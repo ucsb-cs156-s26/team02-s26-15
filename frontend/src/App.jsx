@@ -61,7 +61,7 @@ function App() {
           <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
           <Route path="/restaurants" element={<RestaurantIndexPage />} />
           <Route
-            path="/menuItemReviews"
+            path="/menuitemreviews"
             element={<MenuItemReviewsIndexPage />}
           />
           <Route path="/articles" element={<ArticlesIndexPage />} />
@@ -93,11 +93,11 @@ function App() {
           />
 
           <Route
-            path="/menuItemReviews/edit/:id"
+            path="/menuitemreviews/edit/:id"
             element={<MenuItemReviewsEditPage />}
           />
           <Route
-            path="/menuItemReviews/create"
+            path="/menuitemreviews/create"
             element={<MenuItemReviewsCreatePage />}
           />
 
