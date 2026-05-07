@@ -2,21 +2,21 @@ import React from "react";
 import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import ArticleTable from "main/components/Articles/ArticleTable";
+import UCSBDiningCommonsMenuItemsTable from "main/components/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemsTable";
 import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 import { Button } from "react-bootstrap";
 
-export default function ArticlesIndexPage() {
+export default function UCSBDiningCommonsMenuItemIndexPage() {
   const currentUser = useCurrentUser();
 
   const {
-    data: articles,
+    data: menuItems,
     error: _error,
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/articles/all"],
-    { method: "GET", url: "/api/articles/all" },
+    ["/api/ucsbdiningcommonsmenuitem/all"],
+    { method: "GET", url: "/api/ucsbdiningcommonsmenuitem/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
@@ -26,10 +26,10 @@ export default function ArticlesIndexPage() {
       return (
         <Button
           variant="primary"
-          href="/articles/create"
+          href="/diningcommonsmenuitem/create"
           style={{ float: "right" }}
         >
-          Create Article
+          Create Dining Commons Menu Item
         </Button>
       );
     }
@@ -39,8 +39,11 @@ export default function ArticlesIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         {createButton()}
-        <h1>Articles</h1>
-        <ArticleTable articles={articles} currentUser={currentUser} />
+        <h1>UCSB Dining Commons Menu Items</h1>
+        <UCSBDiningCommonsMenuItemsTable
+          menuItems={menuItems}
+          currentUser={currentUser}
+        />
       </div>
     </BasicLayout>
   );

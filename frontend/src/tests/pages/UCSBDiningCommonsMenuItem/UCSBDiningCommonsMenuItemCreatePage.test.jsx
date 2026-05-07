@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
+import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 
@@ -30,7 +30,7 @@ vi.mock("react-router", async (importOriginal) => {
   };
 });
 
-describe("ArticlesCreatePage tests", () => {
+describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
   beforeEach(() => {
@@ -46,79 +46,76 @@ describe("ArticlesCreatePage tests", () => {
   });
 
   const queryClient = new QueryClient();
-
   test("renders without crashing", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesCreatePage />
+          <UCSBDiningCommonsMenuItemCreatePage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText("Create New Article")).toBeInTheDocument();
+      expect(screen.getByLabelText("Dining Commons Code")).toBeInTheDocument();
     });
   });
 
-  test("on submit, makes request to backend, and redirects to /articles", async () => {
+  test("on submit, makes request to backend, and redirects to /diningcommonsmenuitem", async () => {
     const queryClient = new QueryClient();
-    const article = {
-      id: 1,
-      title: "How to Learn React",
-      url: "https://react.dev/learn",
-      explanation: "Official React tutorial for beginners",
-      email: "xuanbo@ucsb.edu",
-      dateAdded: "2026-05-01T12:00:00.000Z",
+    const diningcommonsmenuitem = {
+      id: 3,
+      diningCommonsCode: "portola",
+      name: "katelyn",
+      station: "station 3",
     };
 
-    axiosMock.onPost("/api/articles/post").reply(202, article);
+    axiosMock
+      .onPost("/api/ucsbdiningcommonsmenuitem/post")
+      .reply(202, diningcommonsmenuitem);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesCreatePage />
+          <UCSBDiningCommonsMenuItemCreatePage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText("Title")).toBeInTheDocument();
+      expect(screen.getByLabelText("Dining Commons Code")).toBeInTheDocument();
     });
 
-    const titleInput = screen.getByLabelText("Title");
-    const urlInput = screen.getByLabelText("URL");
-    const explanationInput = screen.getByLabelText("Explanation");
-    const emailInput = screen.getByLabelText("Email");
-    const dateAddedInput = screen.getByLabelText("Date Added (in UTC)");
+    const diningCommonsCodeInput = screen.getByLabelText("Dining Commons Code");
+    expect(diningCommonsCodeInput).toBeInTheDocument();
+
+    const nameInput = screen.getByLabelText("Name");
+    expect(nameInput).toBeInTheDocument();
+
+    const stationInput = screen.getByLabelText("Station");
+    expect(stationInput).toBeInTheDocument();
+
     const createButton = screen.getByText("Create");
+    expect(createButton).toBeInTheDocument();
 
-    fireEvent.change(titleInput, { target: { value: "How to Learn React" } });
-    fireEvent.change(urlInput, {
-      target: { value: "https://react.dev/learn" },
+    fireEvent.change(diningCommonsCodeInput, { target: { value: "portola" } });
+    fireEvent.change(nameInput, {
+      target: { value: "katelyn" },
     });
-    fireEvent.change(explanationInput, {
-      target: { value: "Official React tutorial for beginners" },
-    });
-    fireEvent.change(emailInput, { target: { value: "xuanbo@ucsb.edu" } });
-    fireEvent.change(dateAddedInput, {
-      target: { value: "2026-05-01T12:00" },
-    });
+    fireEvent.change(stationInput, { target: { value: "station 3" } });
     fireEvent.click(createButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      title: "How to Learn React",
-      url: "https://react.dev/learn",
-      explanation: "Official React tutorial for beginners",
-      email: "xuanbo@ucsb.edu",
-      dateAdded: "2026-05-01T12:00Z",
+      diningCommonsCode: "portola",
+      name: "katelyn",
+      station: "station 3",
     });
 
-    expect(mockToast).toBeCalledWith(
-      "New article Created - id: 1 title: How to Learn React",
+    // assert - check that the toast was called with the expected message
+    expect(mockToast).toHaveBeenCalledWith(
+      "New Dining Commons Menu Item Created - id: 3 diningCommonsCode: portola",
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/articles" });
+    expect(mockNavigate).toHaveBeenCalledWith({ to: "/diningcommonsmenuitem" });
   });
 });
