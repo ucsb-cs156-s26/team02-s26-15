@@ -8,18 +8,6 @@ function HelpRequestForm({
   buttonLabel = "Create",
 }) {
   // Stryker disable all
-  // const {
-  //   register,
-  //   formState: { errors },
-  //   handleSubmit,
-  // } = useForm({
-  //   defaultValues: initialContents
-  //     ? {
-  //         ...initialContents,
-  //         requestTime: initialContents.requestTime.replace("Z", ""),
-  //       }
-  //     : {},
-  // });
   const {
     register,
     formState: { errors },
