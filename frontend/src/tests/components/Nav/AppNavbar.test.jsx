@@ -45,9 +45,13 @@ describe("AppNavbar tests", () => {
     expect(adminMenu).toBeInTheDocument();
   });
 
-  test("renders H2Console and Swagger links correctly", async () => {
+  test("renders only H2Console link correctly", async () => {
     const currentUser = currentUserFixtures.adminUser;
-    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const systemInfo = {
+      springH2ConsoleEnabled: true,
+      showSwaggerUILink: false,
+    };
 
     const doLogin = vi.fn();
 
@@ -64,8 +68,65 @@ describe("AppNavbar tests", () => {
     );
 
     await screen.findByText("H2Console");
-    const swaggerMenu = screen.getByText("Swagger");
-    expect(swaggerMenu).toBeInTheDocument();
+
+    expect(screen.getByText("H2Console")).toBeInTheDocument();
+    expect(screen.queryByText("Swagger")).not.toBeInTheDocument();
+  });
+
+  test("renders only Swagger link correctly", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    const systemInfo = {
+      springH2ConsoleEnabled: false,
+      showSwaggerUILink: true,
+    };
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("Swagger");
+
+    expect(screen.queryByText("H2Console")).not.toBeInTheDocument();
+    expect(screen.getByText("Swagger")).toBeInTheDocument();
+  });
+
+  test("does NOT render H2Console or Swagger links when both systemInfo flags are false", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    const systemInfo = {
+      springH2ConsoleEnabled: false,
+      showSwaggerUILink: false,
+    };
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("Welcome, phtcon@ucsb.edu");
+
+    expect(screen.queryByText("H2Console")).not.toBeInTheDocument();
+    expect(screen.queryByText("Swagger")).not.toBeInTheDocument();
   });
 
   test("renders the AppNavbarLocalhost when on http://localhost:3000", async () => {

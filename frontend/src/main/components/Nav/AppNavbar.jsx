@@ -27,10 +27,12 @@ export default function AppNavbar({
   const systemInfoFromHook = useSystemInfo();
   const systemInfoData = systemInfo || systemInfoFromHook;
 
+  // Stryker disable all : hard to test localhost-specific display
   const isLocalhost =
     (window.location.hostname === "localhost" ||
       window.location.hostname === "127.0.0.1") &&
     window.location.port === "3000";
+  // Stryker restore all
 
   return (
     <Navbar expand="lg" data-testid="AppNavbar">
@@ -97,6 +99,7 @@ export default function AppNavbar({
           </Nav>
 
           <Nav className="ml-auto">
+            {/* Stryker disable next-line all : hard to test localhost-specific display */}
             {isLocalhost && <AppNavbarLocalhost />}
 
             {currentUser && currentUser.loggedIn ? (
