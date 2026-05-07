@@ -68,7 +68,9 @@ describe("HelpRequestEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit HelpRequest");
-      expect(screen.queryByTestId("HelpRequest-requesterEmail")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("HelpRequest-requesterEmail"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -127,16 +129,20 @@ describe("HelpRequestEditPage tests", () => {
       const idField = screen.getByTestId("HelpRequestForm-id");
       const requesterEmailField = screen.getByLabelText("Requester Email");
       const teamIdField = screen.getByLabelText("Team ID");
-      const tableOrBreakoutRoomField = screen.getByLabelText("Table or Breakout Room");
-      const requestTimeField = screen.getByLabelText("Request Time (iso format)");
+      const tableOrBreakoutRoomField = screen.getByLabelText(
+        "Table or Breakout Room",
+      );
+      const requestTimeField = screen.getByLabelText(
+        "Request Time (iso format)",
+      );
       const explanationField = screen.getByLabelText("Explanation");
       const solvedField = screen.getByLabelText("Solved");
 
-      const submitButton = screen.getByText("Update")
+      const submitButton = screen.getByText("Update");
 
       expect(idField).toBeInTheDocument();
       expect(idField).toHaveValue("17");
-      
+
       expect(requesterEmailField).toBeInTheDocument();
       expect(requesterEmailField).toHaveValue("cgaucho@ucsb.edu");
 
@@ -191,12 +197,12 @@ describe("HelpRequestEditPage tests", () => {
       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
       expect(axiosMock.history.put[0].data).toBe(
         JSON.stringify({
-        requesterEmail: "cgauchoUPDATE@ucsb.edu",
-        teamId: "s22-5pm-3UPDATE",
-        tableOrBreakoutRoom: "7UPDATE",
-        requestTime: "2023-04-20T17:35",
-        explanation: "NeedUPDATE help with Swagger-ui",
-        solved: true,
+          requesterEmail: "cgauchoUPDATE@ucsb.edu",
+          teamId: "s22-5pm-3UPDATE",
+          tableOrBreakoutRoom: "7UPDATE",
+          requestTime: "2023-04-20T17:35",
+          explanation: "NeedUPDATE help with Swagger-ui",
+          solved: true,
         }),
       ); // posted object
       expect(mockNavigate).toHaveBeenCalledWith({ to: "/helprequest" });
