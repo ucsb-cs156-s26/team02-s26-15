@@ -210,6 +210,31 @@ describe("AppNavbar tests", () => {
     expect(screen.queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
   });
 
+  test("does NOT render the AppNavbarLocalhost on non-localhost hostname", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+    const doLogin = vi.fn();
+
+    delete window.location;
+    window.location = new URL("http://example.com:3000");
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByTestId("AppNavbar");
+
+    expect(screen.queryByTestId("AppNavbarLocalhost")).toBeNull();
+  });
+
   test("renders the ucsbdates link correctly", async () => {
     const currentUser = currentUserFixtures.userOnly;
     const systemInfo = systemInfoFixtures.showingBoth;
@@ -278,6 +303,7 @@ describe("AppNavbar tests", () => {
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
   });
+
   test("renders the recommendationrequest link correctly", async () => {
     const currentUser = currentUserFixtures.userOnly;
     const systemInfo = systemInfoFixtures.showingBoth;
