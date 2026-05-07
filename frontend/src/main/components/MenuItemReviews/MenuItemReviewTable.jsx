@@ -23,7 +23,8 @@ export default function MenuItemReviewTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/menuItemReviews/all"],
+    // Stryker disable next-line all : hard to set up test for caching
+    ["/api/menuitemreview/all"],
   );
 
   const deleteCallback = async (cell) => {
