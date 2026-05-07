@@ -51,20 +51,26 @@ function App() {
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+
           <Route path="/restaurants" element={<RestaurantIndexPage />} />
+
           <Route
             path="/menuItemReviews"
             element={<MenuItemReviewsIndexPage />}
           />
+
           <Route path="/articles" element={<ArticlesIndexPage />} />
+
           <Route
             path="/diningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
+
           <Route
             path="/ucsborganizations"
             element={<UCSBOrganizationsIndexPage />}
           />
+
           <Route path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
