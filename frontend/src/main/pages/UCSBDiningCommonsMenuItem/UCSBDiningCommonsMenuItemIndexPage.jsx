@@ -2,21 +2,21 @@ import React from "react";
 import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBOrganizationsTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
+import UCSBDiningCommonsMenuItemsTable from "main/components/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemsTable";
 import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 import { Button } from "react-bootstrap";
 
-export default function UCSBOrganizationsIndexPage() {
+export default function UCSBDiningCommonsMenuItemIndexPage() {
   const currentUser = useCurrentUser();
 
   const {
-    data: organizations,
+    data: menuItems,
     error: _error,
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/ucsborganizations/all"],
-    { method: "GET", url: "/api/ucsborganizations/all" },
+    ["/api/ucsbdiningcommonsmenuitem/all"],
+    { method: "GET", url: "/api/ucsbdiningcommonsmenuitem/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
@@ -26,10 +26,10 @@ export default function UCSBOrganizationsIndexPage() {
       return (
         <Button
           variant="primary"
-          href="/ucsborganizations/create"
+          href="/diningcommonsmenuitem/create"
           style={{ float: "right" }}
         >
-          Create UCSB Organization
+          Create Dining Commons Menu Item
         </Button>
       );
     }
@@ -39,9 +39,9 @@ export default function UCSBOrganizationsIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         {createButton()}
-        <h1>Organizations</h1>
-        <UCSBOrganizationsTable
-          organizations={organizations}
+        <h1>UCSB Dining Commons Menu Items</h1>
+        <UCSBDiningCommonsMenuItemsTable
+          menuItems={menuItems}
           currentUser={currentUser}
         />
       </div>
