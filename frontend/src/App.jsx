@@ -11,13 +11,23 @@ import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
+<<<<<<< HEAD
 import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
+=======
+import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
+import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
+import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
+>>>>>>> 0267a31352bbfe5fa99902b981ca71c95d40126f
 
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
+
+import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
+import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
+import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
@@ -53,6 +63,27 @@ function App() {
           />
         </>
       )}
+
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/articles" element={<ArticlesIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/articles/edit/:id"
+            element={<ArticlesEditPage />}
+          />
+          <Route
+            exact
+            path="/articles/create"
+            element={<ArticlesCreatePage />}
+          />
+        </>
+      )}
+
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
@@ -76,8 +107,13 @@ function App() {
         <>
           <Route
             exact
+<<<<<<< HEAD
             path="/diningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
+=======
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+>>>>>>> 0267a31352bbfe5fa99902b981ca71c95d40126f
           />
         </>
       )}
@@ -85,6 +121,7 @@ function App() {
         <>
           <Route
             exact
+<<<<<<< HEAD
             path="/diningcommonsmenuitem/edit/:id"
             element={<UCSBDiningCommonsMenuItemEditPage />}
           />
@@ -92,6 +129,15 @@ function App() {
             exact
             path="/diningcommonsmenuitem/create"
             element={<UCSBDiningCommonsMenuItemCreatePage />}
+=======
+            path="/ucsborganizations/edit/:orgCode"
+            element={<UCSBOrganizationsEditPage />}
+          />
+          <Route
+            exact
+            path="/ucsborganizations/create"
+            element={<UCSBOrganizationsCreatePage />}
+>>>>>>> 0267a31352bbfe5fa99902b981ca71c95d40126f
           />
         </>
       )}
