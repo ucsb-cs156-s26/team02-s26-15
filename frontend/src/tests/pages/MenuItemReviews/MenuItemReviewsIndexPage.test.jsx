@@ -64,7 +64,7 @@ describe("MenuItemReviewsIndexPage tests", () => {
     });
 
     const button = screen.getByText(/Create MenuItemReview/);
-    expect(button).toHaveAttribute("href", "/menuItemReviews/create");
+    expect(button).toHaveAttribute("href", "/menuitemreviews/create");
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
@@ -149,6 +149,7 @@ describe("MenuItemReviewsIndexPage tests", () => {
     axiosMock
       .onGet("/api/menuitemreview/all")
       .reply(200, menuItemReviewFixtures.threeReviews);
+
     axiosMock
       .onDelete("/api/menuItemReviews")
       .reply(200, "MenuItemReview with id 1 was deleted");
@@ -187,6 +188,7 @@ describe("MenuItemReviewsIndexPage tests", () => {
     });
 
     expect(axiosMock.history.delete[0].url).toBe("/api/menuItemReviews");
+
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });
