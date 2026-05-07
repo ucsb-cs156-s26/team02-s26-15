@@ -182,7 +182,7 @@ describe("MenuItemReviewsEditPage tests", () => {
         "MenuItemReview Updated - id: 17 itemId: 3",
       );
 
-      expect(mockNavigate).toBeCalledWith({ to: "/menuitemreviews" });
+      expect(mockNavigate).toBeCalledWith({ to: "/menuItemReviews" });
 
       expect(axiosMock.history.put.length).toBe(1);
       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
@@ -252,7 +252,7 @@ describe("MenuItemReviewsEditPage tests", () => {
       expect(mockToast).toBeCalledWith(
         "MenuItemReview Updated - id: 17 itemId: 3",
       );
-      expect(mockNavigate).toBeCalledWith({ to: "/menuitemreviews" });
+      expect(mockNavigate).toBeCalledWith({ to: "/menuItemReviews" });
     });
   });
 });

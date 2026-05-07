@@ -17,7 +17,7 @@ export default function MenuItemReviewTable({
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/menuitemreviews/edit/${cell.row.original.id}`);
+    navigate(`/menuItemReviews/edit/${cell.row.original.id}`);
   };
 
   const deleteMutation = useBackendMutation(

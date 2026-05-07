@@ -33,7 +33,7 @@ export default function AppNavbar({
     window.location.port === "3000";
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" data-testid="AppNavbar">
+    <Navbar expand="lg" data-testid="AppNavbar">
       <Container>
         <Navbar.Brand as={Link} to="/">
           Team02
