@@ -1,52 +1,56 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router";
-import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
+import MenuItemReviewForm from "main/components/MenuItemReviews/MenuItemReviewForm";
 import { Navigate } from "react-router";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBOrganizationsEditPage({ storybook = false }) {
+export default function MenuItemReviewsEditPage({ storybook = false }) {
   let { id } = useParams();
 
   const {
-    data: organization,
+    data: menuItemReview,
     _error,
     _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/ucsborganizations?orgCode=${id}`],
+    [`/api/menuitemreview?id=${id}`],
     {
       // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
-      url: `/api/ucsborganizations`,
+      url: `/api/menuitemreview`,
       params: {
-        orgCode: id,
+        id,
       },
     },
   );
 
-  const objectToAxiosPutParams = (organization) => ({
-    url: "/api/ucsborganizations",
+  const objectToAxiosPutParams = (menuItemReview) => ({
+    url: "/api/menuitemreview",
     method: "PUT",
     params: {
-      orgCode: id,
+      id: menuItemReview.id,
     },
     data: {
-      orgTranslation: organization.orgTranslation,
-      orgTranslationShort: organization.orgTranslationShort,
-      inactive: organization.inactive,
+      itemId: menuItemReview.itemId,
+      reviewerEmail: menuItemReview.reviewerEmail,
+      stars: menuItemReview.stars,
+      dateReviewed: menuItemReview.dateReviewed,
+      comments: menuItemReview.comments,
     },
   });
 
-  const onSuccess = (organization) => {
-    toast(`UCSB Organization Updated - orgCode: ${organization.orgCode}`);
+  const onSuccess = (menuItemReview) => {
+    toast(
+      `MenuItemReview Updated - id: ${menuItemReview.id} itemId: ${menuItemReview.itemId}`,
+    );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/ucsborganizations?orgCode=${id}`],
+    [`/api/menuitemreview?id=${id}`],
   );
 
   const { isSuccess } = mutation;
@@ -56,18 +60,18 @@ export default function UCSBOrganizationsEditPage({ storybook = false }) {
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/ucsborganizations" />;
+    return <Navigate to="/menuItemReviews" />;
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Edit UCSB Organization</h1>
-        {organization && (
-          <UCSBOrganizationForm
+        <h1>Edit MenuItemReview</h1>
+        {menuItemReview && (
+          <MenuItemReviewForm
             submitAction={onSubmit}
             buttonLabel={"Update"}
-            initialContents={organization}
+            initialContents={menuItemReview}
           />
         )}
       </div>
