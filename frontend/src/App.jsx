@@ -23,6 +23,10 @@ import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganiz
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
 
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
+import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
+import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -59,19 +63,19 @@ function App() {
             element={<MenuItemReviewsIndexPage />}
           />
 
-          <Route
-            path="/ucsborganizations"
-            element={<UCSBOrganizationsIndexPage />}
-          />
-
-          <Route path="/placeholder" element={<PlaceholderIndexPage />} />
-
           <Route path="/articles" element={<ArticlesIndexPage />} />
 
           <Route
             path="/diningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
+
+          <Route
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+          />
+
+          <Route path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
       )}
 
@@ -93,27 +97,10 @@ function App() {
             path="/menuItemReviews/edit/:id"
             element={<MenuItemReviewsEditPage />}
           />
+
           <Route
             path="/menuItemReviews/create"
             element={<MenuItemReviewsCreatePage />}
-          />
-
-          <Route
-            path="/ucsborganizations/edit/:orgCode"
-            element={<UCSBOrganizationsEditPage />}
-          />
-          <Route
-            path="/ucsborganizations/create"
-            element={<UCSBOrganizationsCreatePage />}
-          />
-
-          <Route
-            path="/placeholder/edit/:id"
-            element={<PlaceholderEditPage />}
-          />
-          <Route
-            path="/placeholder/create"
-            element={<PlaceholderCreatePage />}
           />
 
           <Route path="/articles/edit/:id" element={<ArticlesEditPage />} />
@@ -126,6 +113,56 @@ function App() {
           <Route
             path="/diningcommonsmenuitem/create"
             element={<UCSBDiningCommonsMenuItemCreatePage />}
+          />
+
+          <Route
+            exact
+            path="/ucsborganizations/edit/:id"
+            element={<UCSBOrganizationsEditPage />}
+          />
+          <Route
+            path="/ucsborganizations/create"
+            element={<UCSBOrganizationsCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route
+            exact
+            path="/recommendationrequest"
+            element={<RecommendationRequestIndexPage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/recommendationrequest/edit/:id"
+            element={<RecommendationRequestEditPage />}
+          />
+          <Route
+            exact
+            path="/recommendationrequest/create"
+            element={<RecommendationRequestCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            path="/placeholder/edit/:id"
+            element={<PlaceholderEditPage />}
+          />
+          <Route
+            path="/placeholder/create"
+            element={<PlaceholderCreatePage />}
           />
         </>
       )}
