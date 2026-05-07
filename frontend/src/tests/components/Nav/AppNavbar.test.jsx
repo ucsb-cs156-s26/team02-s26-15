@@ -7,6 +7,10 @@ import AppNavbar from "main/components/Nav/AppNavbar";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { expect } from "vitest";
 
+vi.mock("main/utils/systemInfo", () => ({
+  useSystemInfo: vi.fn(() => undefined),
+}));
+
 describe("AppNavbar tests", () => {
   const queryClient = new QueryClient();
 
