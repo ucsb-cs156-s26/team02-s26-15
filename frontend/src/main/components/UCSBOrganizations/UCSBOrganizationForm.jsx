@@ -20,18 +20,21 @@ function UCSBOrganizationForm({
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
-      {initialContents && (
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="orgCode">Organization Code</Form.Label>
-          <Form.Control
-            data-testid={testIdPrefix + "-orgCode"}
-            id="orgCode"
-            type="text"
-            {...register("orgCode")}
-            disabled
-          />
-        </Form.Group>
-      )}
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="orgCode">Organization Code</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-orgCode"}
+          id="orgCode"
+          type="text"
+          isInvalid={Boolean(errors.orgCode)}
+          {...register("orgCode", {
+            required: "Organization Code is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.orgCode?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgTranslation">
@@ -60,6 +63,7 @@ function UCSBOrganizationForm({
           Organization Translation Short
         </Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-orgTranslationShort"}
           id="orgTranslationShort"
           type="text"
           isInvalid={Boolean(errors.orgTranslationShort)}
@@ -73,15 +77,27 @@ function UCSBOrganizationForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Check
+        <Form.Label htmlFor="inactive">Inactive</Form.Label>
+        <Form.Select
+          data-testid={testIdPrefix + "-inactive"}
           id="inactive"
-          type="checkbox"
-          label="Inactive"
-          {...register("inactive")}
-        />
+          isInvalid={Boolean(errors.inactive)}
+          {...register("inactive", {
+            required: "Status is required.",
+          })}
+        >
+          <option value="">Select Status</option>
+          <option value="false">Active</option>
+          <option value="true">Inactive</option>
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">
+          {errors.inactive?.message}
+        </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit">{buttonLabel}</Button>
+      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+        {buttonLabel}
+      </Button>
 
       <Button
         variant="Secondary"

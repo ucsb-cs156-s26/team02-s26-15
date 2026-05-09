@@ -1,109 +1,125 @@
-import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import React from "react";
 import { Link } from "react-router";
+import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
+import { useSystemInfo } from "main/utils/systemInfo";
 import { hasRole } from "main/utils/useCurrentUser";
-import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
+
+function AppNavbarLocalhost() {
+  return (
+    <Navbar.Text data-testid="AppNavbarLocalhost" className="me-3">
+      <span data-testid="AppNavbarLocalhost-message1">
+        Running on http://localhost:3000/ with no backend.
+      </span>
+      <br />
+      <span data-testid="AppNavbarLocalhost-message2">
+        You probably want http://localhost:8080 instead.
+      </span>
+    </Navbar.Text>
+  );
+}
 
 export default function AppNavbar({
   currentUser,
   systemInfo,
   doLogout,
-  currentUrl = window.location.href,
+  oauthLogin = "/oauth2/authorization/google",
 }) {
-  var oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
+  const systemInfoFromHook = useSystemInfo();
+  const systemInfoData = systemInfo || systemInfoFromHook;
+
+  const isLocalhost =
+    (window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1") &&
+    window.location.port === "3000";
 
   return (
-    <>
-      {(currentUrl.startsWith("http://localhost:3000") ||
-        currentUrl.startsWith("http://127.0.0.1:3000")) && (
-        <AppNavbarLocalhost url={currentUrl} />
-      )}
+    <Navbar bg="dark" variant="dark" expand="lg" data-testid="AppNavbar">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          Team02
+        </Navbar.Brand>
 
-      <Navbar
-        expand="xl"
-        variant="dark"
-        bg="dark"
-        sticky="top"
-        data-testid="AppNavbar"
-      >
-        <Container>
-          <Navbar.Brand as={Link} to="/">
-            team02
-          </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-          <Navbar.Toggle />
-
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {systemInfo?.springH2ConsoleEnabled && (
+            {currentUser && currentUser.loggedIn && (
               <>
-                <Nav.Link href="/h2-console">H2Console</Nav.Link>
-              </>
-            )}
-            {systemInfo?.showSwaggerUILink && (
-              <>
-                <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                <Nav.Link as={Link} to="/ucsbdates">
+                  UCSB Dates
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/restaurants">
+                  Restaurants
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/diningcommonsmenuitem">
+                  UCSBDiningCommonsMenuItem
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/ucsborganizations">
+                  UCSB Organizations
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/menuItemReviews">
+                  Menu Item Reviews
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/articles">
+                  Articles
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/recommendationrequest">
+                  Recommendation Request
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/placeholder">
+                  Placeholder
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/helprequest">
+                  HelpRequest
+                </Nav.Link>
+
+                {hasRole(currentUser, "ROLE_ADMIN") && (
+                  <NavDropdown
+                    title="Admin"
+                    id="appnavbar-admin-dropdown"
+                    data-testid="appnavbar-admin-dropdown"
+                  >
+                    <NavDropdown.Item as={Link} to="/admin/users">
+                      Users
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                )}
+
+                {systemInfoData?.springH2ConsoleEnabled && (
+                  <Nav.Link href="/h2-console">H2Console</Nav.Link>
+                )}
+
+                {systemInfoData?.showSwaggerUILink && (
+                  <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                )}
               </>
             )}
           </Nav>
 
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
+          <Nav className="ml-auto">
+            {isLocalhost && <AppNavbarLocalhost />}
 
-          <Navbar.Collapse className="justify-content-between">
-            <Nav className="mr-auto">
-              {hasRole(currentUser, "ROLE_ADMIN") && (
-                <NavDropdown
-                  title="Admin"
-                  id="appnavbar-admin-dropdown"
-                  data-testid="appnavbar-admin-dropdown"
-                >
-                  <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
-                </NavDropdown>
-              )}
-              {currentUser && currentUser.loggedIn ? (
-                <>
-                  <Nav.Link as={Link} to="/restaurants">
-                    Restaurants
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/diningcommonsmenuitem">
-                    UCSBDiningCommonsMenuItem
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdates">
-                    UCSB Dates
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsborganizations">
-                    UCSB Organizations
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/recommendationrequest">
-                    Recommendation Request
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">
-                    Placeholder
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/articles">
-                    Articles
-                  </Nav.Link>
-                </>
-              ) : (
-                <></>
-              )}
-            </Nav>
-
-            <Nav className="ml-auto">
-              {currentUser && currentUser.loggedIn ? (
-                <>
-                  <Navbar.Text className="me-3" as={Link} to="/profile">
-                    Welcome, {currentUser.root.user.email}
-                  </Navbar.Text>
-                  <Button onClick={doLogout}>Log Out</Button>
-                </>
-              ) : (
-                <Button href={oauthLogin}>Log In</Button>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
+            {currentUser && currentUser.loggedIn ? (
+              <>
+                <Navbar.Text className="me-3" as={Link} to="/profile">
+                  Welcome, {currentUser.root.user.email}
+                </Navbar.Text>
+                <Button onClick={doLogout}>Log Out</Button>
+              </>
+            ) : (
+              <Button href={oauthLogin}>Log In</Button>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
