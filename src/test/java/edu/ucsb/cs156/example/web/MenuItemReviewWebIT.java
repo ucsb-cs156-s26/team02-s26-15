@@ -33,7 +33,7 @@ public class MenuItemReviewWebIT extends WebTestCase {
     page.getByLabel("Date Reviewed").fill("2026-05-10T12:30");
     page.getByLabel("Comments").fill("Great food");
 
-    page.getByText("Create").click();
+    page.getByTestId("MenuItemReviewForm-submit").click();
 
     assertThat(page.getByText("Great food")).isVisible();
 
@@ -43,7 +43,7 @@ public class MenuItemReviewWebIT extends WebTestCase {
 
     page.getByLabel("Comments").fill("Updated review");
 
-    page.getByText("Update").click();
+    page.getByTestId("MenuItemReviewForm-submit").click();
 
     assertThat(page.getByText("Updated review")).isVisible();
 
@@ -53,20 +53,20 @@ public class MenuItemReviewWebIT extends WebTestCase {
   }
 
   @Test
-  public void regular_user_cannot_create_menu_item_review() throws Exception {
-    setupUser(false);
-
-    page.getByText("Menu Item Reviews").click();
-
-    assertThat(page.getByText("Create MenuItemReview")).not().isVisible();
-  }
-
-  @Test
   public void admin_user_can_see_create_menu_item_review_button() throws Exception {
     setupUser(true);
 
     page.getByText("Menu Item Reviews").click();
 
     assertThat(page.getByText("Create MenuItemReview")).isVisible();
+  }
+
+  @Test
+  public void regular_user_cannot_create_menu_item_review() throws Exception {
+    setupUser(false);
+
+    page.getByText("Menu Item Reviews").click();
+
+    assertThat(page.getByText("Create MenuItemReview")).not().isVisible();
   }
 }
