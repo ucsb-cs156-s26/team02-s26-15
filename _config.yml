@@ -20,4 +20,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/team02-s26-15
 owner: ucsb-cs156-s26
 repo_name: team02-s26-15
-pull_requests: [{"author":{"id":"U_kgDOCWJ8dA","is_bot":false,"login":"f1amek1ller","name":"Omega"},"headRefName":"yyliu-team03-recommendationrequest-tests-clean","number":132,"title":"Add RecommendationRequest integration and e2e tests","url":"https://github.com/ucsb-cs156-s26/team02-s26-15/pull/132"},{"author":{"id":"U_kgDOC5bJ1g","is_bot":false,"login":"katelyn-dang","name":""},"headRefName":"kd-reviews-e2e-tests","number":131,"title":"Kd reviews e2e tests","url":"https://github.com/ucsb-cs156-s26/team02-s26-15/pull/131"}]
+pull_requests: [{"author":{"id":"U_kgDOCWJ8dA","is_bot":false,"login":"f1amek1ller","name":"Omega"},"headRefName":"yyliu-team03-recommendationrequest-integration","number":133,"title":"Add RecommendationRequest integration test","url":"https://github.com/ucsb-cs156-s26/team02-s26-15/pull/133"},{"author":{"id":"U_kgDOC5bJ1g","is_bot":false,"login":"katelyn-dang","name":""},"headRefName":"kd-reviews-e2e-tests","number":131,"title":"Kd reviews e2e tests","url":"https://github.com/ucsb-cs156-s26/team02-s26-15/pull/131"}]
