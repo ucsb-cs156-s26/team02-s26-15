@@ -3,6 +3,7 @@ package edu.ucsb.cs156.example.web;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 import edu.ucsb.cs156.example.WebTestCase;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,9 +38,11 @@ public class MenuItemReviewWebIT extends WebTestCase {
 
     assertThat(page.getByText("Great food")).isVisible();
 
-    page.getByText("Edit").first().click();
+    page.getByTestId("MenuItemReviewTable-cell-row-0-col-Edit-button").click();
 
-    assertThat(page.getByText("Edit MenuItemReview")).isVisible();
+    assertThat(page).hasURL(Pattern.compile(".*/menuItemReviews/edit/.*"));
+
+    assertThat(page.getByLabel("Comments")).isVisible();
 
     page.getByLabel("Comments").fill("Updated review");
 
@@ -47,7 +50,7 @@ public class MenuItemReviewWebIT extends WebTestCase {
 
     assertThat(page.getByText("Updated review")).isVisible();
 
-    page.getByText("Delete").first().click();
+    page.getByTestId("MenuItemReviewTable-cell-row-0-col-Delete-button").click();
 
     assertThat(page.getByText("Updated review")).not().isVisible();
   }
