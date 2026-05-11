@@ -56,7 +56,6 @@ describe("RecommendationRequestIndexPage tests", () => {
       </QueryClientProvider>,
     );
   };
-
   test("Renders expected content for admin user", async () => {
     setupCommonMocks();
     setupCurrentUser([{ authority: "ROLE_USER" }, { authority: "ROLE_ADMIN" }]);
@@ -77,12 +76,20 @@ describe("RecommendationRequestIndexPage tests", () => {
       screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
     ).toHaveTextContent("I need a recommendation letter.");
 
-    expect(
-      screen.getByText("Create Recommendation Request"),
-    ).toBeInTheDocument();
+    const createButton = screen.getByText("Create Recommendation Request");
+    expect(createButton).toBeInTheDocument();
+    expect(createButton).toHaveAttribute(
+      "href",
+      "/recommendationrequest/create",
+    );
+    expect(createButton).toHaveStyle({ float: "right" });
 
     await waitFor(() => {
-      expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3);
+      const recReqCalls = axiosMock.history.get.filter(
+        (req) => req.url === "/api/RecommendationRequest/all",
+      );
+      expect(recReqCalls.length).toBeGreaterThanOrEqual(1);
+      expect(recReqCalls[0].method).toBe("get");
     });
   });
 
