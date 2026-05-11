@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+import mockConsole from "tests/testutils/mockConsole";
 
 import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
 
@@ -56,6 +57,7 @@ describe("RecommendationRequestIndexPage tests", () => {
       </QueryClientProvider>,
     );
   };
+
   test("Renders expected content for admin user", async () => {
     setupCommonMocks();
     setupCurrentUser([{ authority: "ROLE_USER" }, { authority: "ROLE_ADMIN" }]);
@@ -108,5 +110,36 @@ describe("RecommendationRequestIndexPage tests", () => {
     expect(
       screen.queryByText("Create Recommendation Request"),
     ).not.toBeInTheDocument();
+  });
+
+  test("renders empty table when backend unavailable, user only", async () => {
+    axiosMock.reset();
+    axiosMock.resetHistory();
+
+    axiosMock.onGet("/api/systemInfo").reply(200, {
+      springH2ConsoleEnabled: false,
+      showSwaggerUILink: false,
+    });
+
+    axiosMock.onGet("/api/currentUser").reply(200, {
+      user: { email: "student@ucsb.edu" },
+      roles: [{ authority: "ROLE_USER" }],
+    });
+
+    axiosMock.onGet("/api/RecommendationRequest/all").timeout();
+
+    const restoreConsole = mockConsole();
+
+    renderPage();
+
+    await waitFor(() => {
+      expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
+    });
+
+    const errorMessage = console.error.mock.calls[0][0];
+    expect(errorMessage).toMatch(
+      "Error communicating with backend via GET on /api/RecommendationRequest/all",
+    );
+    restoreConsole();
   });
 });
