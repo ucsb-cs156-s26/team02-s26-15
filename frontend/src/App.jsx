@@ -144,7 +144,7 @@ function App() {
           />
 
           <Route
-            path="/ucsborganizations/edit/:orgCode"
+            path="/ucsborganizations/edit/:id"
             element={<UCSBOrganizationsEditPage />}
           />
           <Route
