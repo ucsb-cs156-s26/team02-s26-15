@@ -23,13 +23,13 @@ describe("RecommendationRequestIndexPage tests", () => {
   ];
 
   const setupCurrentUser = (roles) => {
-  axiosMock.onGet("/api/currentUser").reply(200, {
-    user: {
-      email: "pconrad.cis@gmail.com",
-    },
-    roles,
-  });
-};
+    axiosMock.onGet("/api/currentUser").reply(200, {
+      user: {
+        email: "pconrad.cis@gmail.com",
+      },
+      roles,
+    });
+  };
 
   const setupCommonMocks = () => {
     axiosMock.reset();
@@ -59,10 +59,7 @@ describe("RecommendationRequestIndexPage tests", () => {
 
   test("Renders expected content for admin user", async () => {
     setupCommonMocks();
-    setupCurrentUser([
-      { authority: "ROLE_USER" },
-      { authority: "ROLE_ADMIN" },
-    ]);
+    setupCurrentUser([{ authority: "ROLE_USER" }, { authority: "ROLE_ADMIN" }]);
 
     renderPage();
 
@@ -80,7 +77,9 @@ describe("RecommendationRequestIndexPage tests", () => {
       screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
     ).toHaveTextContent("I need a recommendation letter.");
 
-    expect(screen.getByText("Create Recommendation Request")).toBeInTheDocument();
+    expect(
+      screen.getByText("Create Recommendation Request"),
+    ).toBeInTheDocument();
 
     await waitFor(() => {
       expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3);
