@@ -10,46 +10,42 @@ describe("RecommendationRequestIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
   const testId = "RecommendationRequestTable";
 
-  beforeEach(() => {
+  const recommendationRequests = [
+    {
+      id: 1,
+      requesterEmail: "student@ucsb.edu",
+      professorEmail: "professor@ucsb.edu",
+      explanation: "I need a recommendation letter.",
+      dateRequested: "2026-05-10T12:00:00",
+      dateNeeded: "2026-06-01T12:00:00",
+      done: false,
+    },
+  ];
+
+  const setupCurrentUser = (roles) => {
+  axiosMock.onGet("/api/currentUser").reply(200, {
+    user: {
+      email: "pconrad.cis@gmail.com",
+    },
+    roles,
+  });
+};
+
+  const setupCommonMocks = () => {
     axiosMock.reset();
     axiosMock.resetHistory();
-
-    axiosMock.onGet("/api/currentUser").reply(200, {
-      loggedIn: true,
-      root: {
-        user: {
-          email: "pconrad.cis@gmail.com",
-        },
-        roles: [
-          {
-            authority: "ROLE_USER",
-          },
-          {
-            authority: "ROLE_ADMIN",
-          },
-        ],
-      },
-    });
 
     axiosMock.onGet("/api/systemInfo").reply(200, {
       springH2ConsoleEnabled: false,
       showSwaggerUILink: false,
     });
 
-    axiosMock.onGet("/api/RecommendationRequest/all").reply(200, [
-      {
-        id: 1,
-        requesterEmail: "student@ucsb.edu",
-        professorEmail: "professor@ucsb.edu",
-        explanation: "I need a recommendation letter.",
-        dateRequested: "2026-05-10T12:00:00",
-        dateNeeded: "2026-06-01T12:00:00",
-        done: false,
-      },
-    ]);
-  });
+    axiosMock
+      .onGet("/api/RecommendationRequest/all")
+      .reply(200, recommendationRequests);
+  };
 
-  test("Renders expected content", async () => {
+  const renderPage = () => {
     const queryClient = new QueryClient();
 
     render(
@@ -59,6 +55,16 @@ describe("RecommendationRequestIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
+  };
+
+  test("Renders expected content for admin user", async () => {
+    setupCommonMocks();
+    setupCurrentUser([
+      { authority: "ROLE_USER" },
+      { authority: "ROLE_ADMIN" },
+    ]);
+
+    renderPage();
 
     await screen.findByText("Recommendation Requests");
 
@@ -74,8 +80,27 @@ describe("RecommendationRequestIndexPage tests", () => {
       screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
     ).toHaveTextContent("I need a recommendation letter.");
 
+    expect(screen.getByText("Create Recommendation Request")).toBeInTheDocument();
+
     await waitFor(() => {
       expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3);
     });
+  });
+
+  test("Does not render create button for regular user", async () => {
+    setupCommonMocks();
+    setupCurrentUser([{ authority: "ROLE_USER" }]);
+
+    renderPage();
+
+    await screen.findByText("Recommendation Requests");
+
+    expect(
+      await screen.findByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("student@ucsb.edu");
+
+    expect(
+      screen.queryByText("Create Recommendation Request"),
+    ).not.toBeInTheDocument();
   });
 });
